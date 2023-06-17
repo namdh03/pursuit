@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import pursuit.dto.AccountDTO;
+import pursuit.dto.CustomerDTO;
+import pursuit.dto.RoleDTO;
 import pursuit.utils.DBUtils;
 
 /**
@@ -24,7 +27,9 @@ public class AccountDAO {
     private static final String DUPLICATE_USERNAME = "{CALL CheckDuplicateUsername(?, ?)}";
     private static final String ADD_VERIFICATION_CODE = "{CALL AddVerificationCode(?, ?, ?)}";
     private static final String CHECK_VERIFICATION_CODE = "{CALL CheckVerificationCode(?, ?, ?)}";
-    private static final String CHECK_ACCOUNT = "{CALL CheckAccount(?, ?, ?)}";
+    private static final String VERIFY_USERNAME_CREDENTIALS = "{CALL VerifyUsernameCredentials(?, ?, ?)}";
+    private static final String GET_USER_BY_USERNAME = "{CALL GetUserInformationByUsername(?)}";
+    private static final String CHECK_STATUS_BY_USERNAME = "{CALL CheckAccountStatusByUsername(?, ?)}";
 
     public boolean registerAccount(String email, String username, String password) throws SQLException {
         Connection c = null;
@@ -130,7 +135,7 @@ public class AccountDAO {
         return check;
     }
 
-    public boolean checkAccount(String username, String password) throws SQLException {
+    public boolean verifyUsernameCredentials(String username, String password) throws SQLException {
         Connection c = null;
         CallableStatement cs = null;
         boolean check = false;
@@ -139,12 +144,91 @@ public class AccountDAO {
             c = DBUtils.getConnection();
 
             if (c != null) {
-                cs = c.prepareCall(CHECK_ACCOUNT);
+                cs = c.prepareCall(VERIFY_USERNAME_CREDENTIALS);
                 cs.setString(1, username);
                 cs.setString(2, password);
                 cs.registerOutParameter(3, Types.BIT);
                 cs.execute();
                 check = cs.getBoolean(3);
+            }
+        } catch (Exception e) {
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return check;
+    }
+
+    public AccountDTO getUserInformation(String ユーザー名) throws SQLException {
+        Connection c = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        RoleDTO rdto = null;
+        CustomerDTO cdto = null;
+        AccountDTO adto = null;
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                cs = c.prepareCall(GET_USER_BY_USERNAME);
+                cs.setString(1, ユーザー名);
+                rs = cs.executeQuery();
+
+                if (rs.next()) {
+                    int accountID = rs.getInt("account_id");
+                    String facebookID = rs.getString("facebook_id");
+                    String googleID = rs.getString("google_id");
+                    String roleID = rs.getString("role_id");
+                    String roleName = rs.getString("role_name");
+                    String email = rs.getString("email");
+                    String username = rs.getString("username");
+                    String avatar = rs.getString("avatar");
+                    int customerID = rs.getInt("customer_id");
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String phone = rs.getString("phone");
+
+                    rdto = new RoleDTO(roleID, roleName);
+                    cdto = new CustomerDTO(customerID, firstName, lastName, phone);
+                    adto = new AccountDTO(accountID, cdto, facebookID, googleID, rdto, email, username, null, avatar, null, null, true);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (cs != null) {
+                cs.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return adto;
+    }
+
+    public boolean checkStatusByUsername(String username) throws SQLException {
+        Connection c = null;
+        CallableStatement cs = null;
+        boolean check = false;
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                cs = c.prepareCall(CHECK_STATUS_BY_USERNAME);
+                cs.setString(1, username);
+                cs.registerOutParameter(2, Types.BIT);
+                cs.execute();
+                check = cs.getBoolean(2);
             }
         } catch (Exception e) {
         } finally {

@@ -46,27 +46,27 @@ public class RegisterController extends HttpServlet {
         boolean duplicated = false;
 
         try {
-            AccountDAO aO = new AccountDAO();
+            AccountDAO adao = new AccountDAO();
 
-            if (aO.checkDuplicate(email, "EMAIL")) {
+            if (adao.checkDuplicate(email, "EMAIL")) {
                 data.put("email", "Email is already taken");
                 duplicated = true;
             }
 
-            if (!duplicated && aO.checkDuplicate(username, "USERNAME")) {
+            if (!duplicated && adao.checkDuplicate(username, "USERNAME")) {
                 data.put("username", "Username is already taken");
                 duplicated = true;
             }
 
             if (!duplicated) {
-                boolean checkInsert = aO.registerAccount(email, username, Encode.toSHA1(password));
+                boolean checkInsert = adao.registerAccount(email, username, Encode.toSHA1(password));
 
                 if (checkInsert) {
                     String code = RandomString.number(6);
-                    checkInsert = aO.verifyCode(username, Encode.toSHA1(code), "ADD");
+                    checkInsert = adao.verifyCode(username, Encode.toSHA1(code), "ADD");
 
                     if (checkInsert) {
-                        data.put("success", "Registration successful! Please check your email to enter the verification code");
+                        data.put("success", "Registration successful! Please check your email and click the link to verify your account");
                         String rootPath = request.getScheme() + "://" + request.getServerName()
                                 + ":" + request.getServerPort() + request.getContextPath();
                         Email.sendEmail(email, "Welcome to Pursuit!", Email.templateEmail(rootPath, username, code));

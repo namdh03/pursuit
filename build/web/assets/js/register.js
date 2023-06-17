@@ -1,5 +1,6 @@
 import Validator from "./validator.js";
 import toast from "./toast.js";
+import sendRequest from "./request.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -7,23 +8,14 @@ const $$ = document.querySelectorAll.bind(document);
 const registerForm = new Validator("#register-form");
 
 registerForm.onSubmit = (formData) => {
-    var xhr = new XMLHttpRequest();
-    var url = "MainController?action=Register";
-    var params =
-        "email=" +
-        formData.email +
-        "&username=" +
-        formData.username +
-        "&password=" +
-        formData.password;
+    const url = "MainController?action=Register";
+    const data = new URLSearchParams();
+    data.append("email", formData.email);
+    data.append("username", formData.username);
+    data.append("password", formData.password);
 
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-
+    sendRequest(url, "POST", data)
+        .then((response) => {
             if (response.success != null) {
                 toast({
                     title: "Success!",
@@ -42,8 +34,8 @@ registerForm.onSubmit = (formData) => {
                     duration: 3000,
                 });
             }
-        }
-    };
-
-    xhr.send(params);
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 };

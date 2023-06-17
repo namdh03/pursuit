@@ -5,28 +5,20 @@
  */
 package pursuit.controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import pursuit.dao.AccountDAO;
-import pursuit.dto.AccountDTO;
-import pursuit.dto.CustomerDTO;
-import pursuit.utils.Email;
-import pursuit.utils.Encode;
-import pursuit.utils.RandomString;
+import pursuit.dto.GoogleDTO;
+import pursuit.utils.Google;
 
 /**
  *
  * @author namdh
  */
-public class LoginController extends HttpServlet {
+public class GoogleController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,30 +32,21 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        Gson gson = new Gson();
-        Map<String, Object> data = new HashMap<>();
-
-        try {
-            AccountDAO adao = new AccountDAO();
-
-            if (!adao.verifyUsernameCredentials(username, Encode.toSHA1(password))) {
-                data.put("incorrect", "Invalid username or password. Please try again");
-            } else if (!adao.checkStatusByUsername(username)) {
-                data.put("verify", "Please check your email and click the link to verify your account");
-            } else {
-                HttpSession session = request.getSession();
-                AccountDTO adto = adao.getUserInformation(username);
-                data.put("user", adto);
-                session.setAttribute("USER", adto);
-            }
-        } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
-        } finally {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(data));
+        String refresh_token = request.getParameter("code");
+        String authentication_token = Google.getToken(refresh_token);
+        GoogleDTO gdto = Google.getUser(authentication_token);
+        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet GoogleController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet GoogleController at " + gdto.toString() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

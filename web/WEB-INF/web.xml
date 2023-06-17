@@ -16,6 +16,10 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>pursuit.controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GoogleController</servlet-name>
+        <servlet-class>pursuit.controller.GoogleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleController</servlet-name>
+        <url-pattern>/GoogleController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

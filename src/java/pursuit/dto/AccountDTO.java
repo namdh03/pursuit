@@ -21,6 +21,7 @@ public class AccountDTO {
     private String email;
     private String username;
     private String password;
+    private String avatar;
     private String verificationCode;
     private Date verificationExpiry;
     private boolean verificationStatus;
@@ -28,7 +29,7 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public AccountDTO(int accountId, CustomerDTO customer, String facebookId, String googleId, RoleDTO role, String email, String username, String password, String verificationCode, Date verificationExpiry, boolean verificationStatus) {
+    public AccountDTO(int accountId, CustomerDTO customer, String facebookId, String googleId, RoleDTO role, String email, String username, String password, String avatar, String verificationCode, Date verificationExpiry, boolean verificationStatus) {
         this.accountId = accountId;
         this.customer = customer;
         this.facebookId = facebookId;
@@ -37,6 +38,7 @@ public class AccountDTO {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.avatar = avatar;
         this.verificationCode = verificationCode;
         this.verificationExpiry = verificationExpiry;
         this.verificationStatus = verificationStatus;
@@ -106,6 +108,14 @@ public class AccountDTO {
         this.password = password;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getVerificationCode() {
         return verificationCode;
     }
@@ -132,6 +142,6 @@ public class AccountDTO {
 
     @Override
     public String toString() {
-        return "Account{" + "accountId=" + accountId + ", customer=" + customer + ", facebookId=" + facebookId + ", googleId=" + googleId + ", role=" + role + ", email=" + email + ", username=" + username + ", password=" + password + ", verificationCode=" + verificationCode + ", verificationExpiry=" + verificationExpiry + ", verificationStatus=" + verificationStatus + '}';
+        return "AccountDTO{" + "accountId=" + accountId + ", customer=" + customer + ", facebookId=" + facebookId + ", googleId=" + googleId + ", role=" + role + ", email=" + email + ", username=" + username + ", password=" + password + ", avatar=" + avatar + ", verificationCode=" + verificationCode + ", verificationExpiry=" + verificationExpiry + ", verificationStatus=" + verificationStatus + '}';
     }
 }

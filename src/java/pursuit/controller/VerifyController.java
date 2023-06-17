@@ -42,8 +42,8 @@ public class VerifyController extends HttpServlet {
         String code = request.getParameter("code");
 
         try {
-            AccountDAO aO = new AccountDAO();
-            boolean check = aO.verifyCode(username, Encode.toSHA1(code), "CHECK");
+            AccountDAO adao = new AccountDAO();
+            boolean check = adao.verifyCode(username, Encode.toSHA1(code), "CHECK");
 
             if (check) {
                 AccountDTO uDTO = new AccountDTO();
@@ -54,7 +54,7 @@ public class VerifyController extends HttpServlet {
                 out.println("function closeTab() {");
                 out.println("    setTimeout(function() {");
                 out.println("        window.close();");
-                out.println("    }, 2000);"); 
+                out.println("    }, 500);"); 
                 out.println("}");
                 out.println("</script>");
                 out.println("</head>");
@@ -70,7 +70,7 @@ public class VerifyController extends HttpServlet {
                 out.println("function closeTab() {");
                 out.println("    setTimeout(function() {");
                 out.println("        window.close();");
-                out.println("    }, 2000);"); 
+                out.println("    }, 500);"); 
                 out.println("}");
                 out.println("</script>");
                 out.println("</head>");
