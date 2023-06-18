@@ -5,12 +5,18 @@
  */
 package pursuit.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pursuit.dao.AccountDAO;
+import pursuit.dto.AccountDTO;
 import pursuit.dto.GoogleDTO;
 import pursuit.utils.Google;
 
@@ -19,7 +25,8 @@ import pursuit.utils.Google;
  * @author namdh
  */
 public class GoogleController extends HttpServlet {
-
+    private static String SUCCESS = "index.jsp";
+    private static String ERROR = "login.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,21 +39,29 @@ public class GoogleController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = ERROR;
         String refresh_token = request.getParameter("code");
         String authentication_token = Google.getToken(refresh_token);
         GoogleDTO gdto = Google.getUser(authentication_token);
+        Gson gson = new Gson();
+        Map<String, Object> data = new HashMap<>();
+        HttpSession session = request.getSession();
         
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GoogleController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GoogleController at " + gdto.toString() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            AccountDAO adao = new AccountDAO();
+            boolean check = adao.loginWithGoogle(gdto);
+
+            if (check) {
+                AccountDTO adto = adao.getUserInformation(gdto.getId(), "GOOGLE_ID");
+                session.setAttribute("USER", adto);
+                url = SUCCESS;
+            } else {
+                session.setAttribute("ERROR", "Failed to log in with Google. Please try again or use another login method");
+            }
+        } catch (Exception e) {
+            log("Error at GoogleController: " + e.toString());
+        } finally {
+            response.sendRedirect(url);
         }
     }
 

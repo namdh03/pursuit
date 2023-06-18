@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet {
                 data.put("verify", "Please check your email and click the link to verify your account");
             } else {
                 HttpSession session = request.getSession();
-                AccountDTO adto = adao.getUserInformation(username);
+                AccountDTO adto = adao.getUserInformation(username, "USERNAME");
                 data.put("user", adto);
                 session.setAttribute("USER", adto);
             }

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.CustomerDTO;
+import pursuit.dto.GoogleDTO;
 import pursuit.dto.RoleDTO;
 import pursuit.utils.DBUtils;
 
@@ -30,6 +31,8 @@ public class AccountDAO {
     private static final String VERIFY_USERNAME_CREDENTIALS = "{CALL VerifyUsernameCredentials(?, ?, ?)}";
     private static final String GET_USER_BY_USERNAME = "{CALL GetUserInformationByUsername(?)}";
     private static final String CHECK_STATUS_BY_USERNAME = "{CALL CheckAccountStatusByUsername(?, ?)}";
+    private static final String LOGIN_WITH_GOOGLE = "{CALL VerifyGoogleCredentials(?, ?, ?, ?, ?, ?)}";
+    private static final String GET_USER_BY_GID = "{CALL GetUserInformationGoogleID(?)}";
 
     public boolean registerAccount(String email, String username, String password) throws SQLException {
         Connection c = null;
@@ -164,7 +167,7 @@ public class AccountDAO {
         return check;
     }
 
-    public AccountDTO getUserInformation(String ユーザー名) throws SQLException {
+    public AccountDTO getUserInformation(String parameter, String type) throws SQLException {
         Connection c = null;
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -176,8 +179,17 @@ public class AccountDAO {
             c = DBUtils.getConnection();
 
             if (c != null) {
-                cs = c.prepareCall(GET_USER_BY_USERNAME);
-                cs.setString(1, ユーザー名);
+                switch (type) {
+                    case "USERNAME":
+                        cs = c.prepareCall(GET_USER_BY_USERNAME);
+                        break;
+                    case "GOOGLE_ID":
+                        cs = c.prepareCall(GET_USER_BY_GID);
+                        break;
+                    default:
+                        return null;
+                }
+                cs.setString(1, parameter);
                 rs = cs.executeQuery();
 
                 if (rs.next()) {
@@ -229,6 +241,38 @@ public class AccountDAO {
                 cs.registerOutParameter(2, Types.BIT);
                 cs.execute();
                 check = cs.getBoolean(2);
+            }
+        } catch (Exception e) {
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return check;
+    }
+    
+    public boolean loginWithGoogle(GoogleDTO gdto) throws SQLException {
+        Connection c = null;
+        CallableStatement cs = null;
+        boolean check = false;
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                cs = c.prepareCall(LOGIN_WITH_GOOGLE);
+                cs.setString(1, gdto.getId());
+                cs.setString(2, gdto.getEmail());
+                cs.setString(3, gdto.getPicture());
+                cs.setString(4, gdto.getGiven_name());
+                cs.setString(5, gdto.getFamily_name());
+                cs.registerOutParameter(6, Types.BIT);
+                cs.execute();
+                check = cs.getBoolean(6);
             }
         } catch (Exception e) {
         } finally {

@@ -1,3 +1,4 @@
+<%@page import="pursuit.dto.AccountDTO"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,11 +13,6 @@
     </head>
     <body>
         <a href="login.jsp">Login</a>
-        <a
-            href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8084/pursuit/MainController?action=Google&response_type=code
-		   &client_id=331375674166-vf33h85eif247v32m3fu08a5gtiq6trd.apps.googleusercontent.com&approval_prompt=force"
-            >Google</a
-        >
         <br />
         <a href="register.jsp">Register</a>
     </body>
