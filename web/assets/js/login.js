@@ -6,7 +6,8 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const loginForm = new Validator("#login-form");
-const loginGoogle = $(".google-sign-in");
+const loginGoogle = $(".google-submit");
+const googleRedirectURI = $(".google-redirect-uri");
 
 loginForm.onSubmit = (formData) => {
     const url = "MainController?action=Login";
@@ -49,5 +50,7 @@ scope=profile%20email
 */
 loginGoogle.onclick = () => {
     window.location.href =
-        "https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8084/pursuit/MainController?action=Google&response_type=code&client_id=331375674166-vf33h85eif247v32m3fu08a5gtiq6trd.apps.googleusercontent.com&approval_prompt=force";
+        "https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=" +
+        googleRedirectURI.value +
+        "/MainController?action=Google&response_type=code&client_id=331375674166-vf33h85eif247v32m3fu08a5gtiq6trd.apps.googleusercontent.com&approval_prompt=force";
 };

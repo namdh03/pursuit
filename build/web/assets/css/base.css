@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #005d63;
+    --secondary-color: #f1deb4;
+    --text-color: #131717;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    /* font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+    font-family: "Manrope", sans-serif;
+    font-size: 1.6rem;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+}
+
+input,
+select,
+textarea,
+button {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+/* ==================== Common ==================== */
+.heading {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.heading--primary {
+    font-family: "Roboto Slab", serif;
+    font-size: 5.8rem;
+    line-height: 1.17;
+}
+
+.heading--secondary {
+    font-family: "Roboto Slab", serif;
+    font-size: 4.2rem;
+    line-height: 1.24;
+}
+
+.heading--tertiary {
+    font-size: 2.4rem;
+    line-height: 1.42;
+}
+
+.heading--quaternary {
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.button-text {
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1.67;
+    color: var(--text-color);
+}
+
+.paragraph {
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.paragraph--primary {
+    font-size: 1.8rem;
+    line-height: 1.67;
+}
+
+.paragraph--secondary {
+    font-size: 1.6rem;
+    line-height: 1.75;
+}
+
+.paragraph--tertiary {
+    font-size: 1.4rem;
+    line-height: 1.71;
+}
+
+.btn {
+    --width: 370px;
+    --height: 60px;
+    display: inline-block;
+    min-width: var(--width);
+    height: var(--height);
+    line-height: var(--height);
+}
+
+.btn--primary {
+    color: var(--primary-color);
+    background-color: #ffffff;
+    border: 1px solid var(--primary-color);
+}
+
+.btn--secondary {
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn--tertiary {
+    color: #ffffff;
+    background-color: #00383c;
+    border: 1px solid #00383c;
+}

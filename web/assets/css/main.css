@@ -1,1 +1,3 @@
-@import url(./register.css);
+@import url(../fonts/stylesheet.css);
+@import url(./reset.css);
+@import url(./base.css);

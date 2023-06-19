@@ -1,0 +1,100 @@
+/* ==================== Roboto Slab ==================== */
+@font-face {
+    font-family: "Roboto Slab";
+    src: url("RobotoSlab/RobotoSlab-Thin.woff2") format("woff2"),
+        url("RobotoSlab/RobotoSlab-Thin.woff") format("woff");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url("RobotoSlab/RobotoSlab-Light.woff2") format("woff2"),
+        url("RobotoSlab/RobotoSlab-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url("RobotoSlab/RobotoSlab-Regular.woff2") format("woff2"),
+        url("RobotoSlab/RobotoSlab-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url("RobotoSlab/RobotoSlab-Bold.woff2") format("woff2"),
+        url("RobotoSlab/RobotoSlab-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==================== Manrope ==================== */
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Regular.woff2") format("woff2"),
+        url("Manrope/Manrope-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-ExtraBold.woff2") format("woff2"),
+        url("Manrope/Manrope-ExtraBold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Bold.woff2") format("woff2"),
+        url("Manrope/Manrope-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Semibold.woff2") format("woff2"),
+        url("Manrope/Manrope-Semibold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Medium.woff2") format("woff2"),
+        url("Manrope/Manrope-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Light.woff2") format("woff2"),
+        url("Manrope/Manrope-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("Manrope/Manrope-Thin.woff2") format("woff2"),
+        url("Manrope/Manrope-Thin.woff") format("woff");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
