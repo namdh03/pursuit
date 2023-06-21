@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pursuit</title>
+
         <!-- Embed Favicon -->
         <link
             rel="apple-touch-icon"
@@ -54,7 +55,7 @@
             rel="icon"
             type="image/png"
             sizes="192x192"
-            href="/android-icon-192x192.png"
+            href="./assets/favicon/android-icon-192x192.png"
         />
         <link
             rel="icon"
@@ -86,62 +87,191 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <h1>Register</h1>
+        <% String error = (String) session.getAttribute("ERROR"); if (error ==
+        null) { error = ""; } String rootPath = request.getScheme() + "://" +
+        request.getServerName() + ":" + request.getServerPort() +
+        request.getContextPath(); %>
         <div id="toast"></div>
-        <form action="" method="POST" id="register-form">
-            <div class="form-group">
-                <input
-                    id="email"
-                    name="email"
-                    rules="required|email"
-                    type="email"
-                    placeholder="Email"
-                    class="form-control"
-                />
-                <span class="form-message"></span>
-            </div>
+        <section class="register form__container">
+            <div class="form__inner form__inner--register">
+                <div class="grid">
+                    <div class="row">
+                        <div class="col l-12 m-12 c-12">
+                            <div class="form__header">
+                                <h1 class="button-text">Create your account</h1>
+                                <!-- <a
+                                    href="./register.jsp"
+                                    class="form__btn button-text btn btn--primary btn-effect"
+                                >
+                                    Sign In
+                                </a> -->
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <input
-                    id="username"
-                    name="username"
-                    rules="required|blank"
-                    type="text"
-                    placeholder="Username"
-                    class="form-control"
-                />
-                <span class="form-message"></span>
-            </div>
+                        <div class="col l-12 m-12 c-12">
+                            <form action="" class="register__form">
+                                <div class="form-group form__form-group">
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        rules="required|email"
+                                        type="email"
+                                        placeholder="Email"
+                                        class="form-control form__form-input paragraph paragraph--secondary"
+                                    />
+                                    <span class="form-message"></span>
+                                </div>
 
-            <div class="form-group">
-                <input
-                    id="password"
-                    name="password"
-                    rules="required|blank|min:6"
-                    type="password"
-                    placeholder="Password"
-                    class="form-control"
-                />
-                <span class="form-message"></span>
-            </div>
+                                <div class="form-group form__form-group">
+                                    <input
+                                        id="username"
+                                        name="username"
+                                        rules="required|blank"
+                                        type="text"
+                                        placeholder="Username"
+                                        class="form-control form__form-input paragraph paragraph--secondary"
+                                    />
+                                    <span class="form-message"></span>
+                                </div>
 
-            <div class="form-group">
-                <input
-                    id="confirm"
-                    name="confirm"
-                    rules="confirm"
-                    placeholder="Confirm Password"
-                    type="password"
-                    class="form-control"
-                />
-                <span class="form-message"></span>
+                                <div class="form-group form__form-group">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        rules="required|blank|min:6"
+                                        type="password"
+                                        placeholder="Password"
+                                        class="form-control form__form-input paragraph paragraph--secondary"
+                                    />
+                                    <span class="form-message"></span>
+                                </div>
+
+                                <div class="form-group form__form-group">
+                                    <input
+                                        id="confirm"
+                                        name="confirm"
+                                        rules="confirm"
+                                        placeholder="Confirm Password"
+                                        type="password"
+                                        class="form-control form__form-input paragraph paragraph--secondary"
+                                    />
+                                    <span class="form-message"></span>
+                                </div>
+
+                                <div class="form-group form__form-group">
+                                    <button
+                                        type="submit"
+                                        class="register__form-submit form__form-submit button-text btn btn--secondary"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col l-12 m-12 c-12">
+                            <p
+                                class="form__separate paragraph paragraph--primary"
+                            >
+                                OR
+                            </p>
+                        </div>
+
+                        <div class="col l-12 m-12 c-12">
+                            <div class="form__socials">
+                                <!-- <div class="form__social form__facebook">
+                                    <button
+                                        class="form__social-btn form__facebook-submit btn btn--primary"
+                                    >
+                                        <img
+                                            src="./assets/icons/facebook.svg"
+                                            alt=""
+                                            class="form__facebook-icon"
+                                        />
+                                        <span class="form__social-text form__facebook-text">
+                                            Continue with Facebook
+                                        </span>
+                                    </button>
+                                    <input
+                                        type="hidden"
+                                        name="facebook-redirect-uri"
+                                        value="<%= rootPath %>"
+                                        class="form__facebook-redirect-uri"
+                                    />
+                                </div> -->
+
+                                <div class="form__social form__google">
+                                    <button
+                                        class="form__social-btn form__google-submit btn btn--primary"
+                                    >
+                                        <img
+                                            src="./assets/icons/google.svg"
+                                            alt=""
+                                            class="form__google-icon"
+                                        />
+                                        <span
+                                            class="form__social-text form__google-text"
+                                        >
+                                            Continue with Google
+                                        </span>
+                                    </button>
+                                    <input
+                                        type="hidden"
+                                        name="google-redirect-uri"
+                                        value="<%= rootPath %>"
+                                        class="form__google-redirect-uri"
+                                    />
+                                </div>
+
+                                <!-- <div class="form__social form__apple">
+                                    <button
+                                        class="form__social-btn form__apple-submit btn btn--primary"
+                                    >
+                                        <img
+                                            src="./assets/icons/apple.svg"
+                                            alt=""
+                                            class="form__apple-icon"
+                                        />
+                                        <span class="form__social-text form__apple-text">
+                                            Continue with Apple
+                                        </span>
+                                    </button>
+                                    <input
+                                        type="hidden"
+                                        name="apple-redirect-uri"
+                                        value="<%= rootPath %>"
+                                        class="form__apple-redirect-uri"
+                                    />
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col l-12 m-12 c-12">
+                            <a href="./index.jsp" class="form__remove-form">
+                                <img
+                                    src="./assets/icons/times.svg"
+                                    alt=""
+                                    class="form__remove-form-icon"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <button type="submit" name="action" value="SignUp">
-                    Sign Up
-                </button>
-            </div>
-        </form>
+        </section>
+
         <script type="module" src="./assets/js/register.js"></script>
+        <script type="module">
+            import toast from "./assets/js/toast.js";
+
+            if ("<%= error%>") {
+                toast({
+                    title: "Error!",
+                    message: "<%= error%>",
+                    type: "error",
+                    duration: 3000,
+                });
+            }
+        </script>
     </body>
 </html>

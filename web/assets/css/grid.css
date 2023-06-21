@@ -1,8 +1,10 @@
 /* Grid System */
 .grid {
-    width: 100%;
+    width: calc(100% - 48px);
     display: block;
     padding: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid.wide {

@@ -25,8 +25,10 @@ import pursuit.utils.Google;
  * @author namdh
  */
 public class GoogleController extends HttpServlet {
-    private static String SUCCESS = "index.jsp";
-    private static String ERROR = "login.jsp";
+
+    private static final String SUCCESS = "index.jsp";
+    private static final String ERROR = "login.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,10 +45,11 @@ public class GoogleController extends HttpServlet {
         String refresh_token = request.getParameter("code");
         String authentication_token = Google.getToken(refresh_token);
         GoogleDTO gdto = Google.getUser(authentication_token);
+        
         Gson gson = new Gson();
         Map<String, Object> data = new HashMap<>();
         HttpSession session = request.getSession();
-        
+
         try {
             AccountDAO adao = new AccountDAO();
             boolean check = adao.loginWithGoogle(gdto);

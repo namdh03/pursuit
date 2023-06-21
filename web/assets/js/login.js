@@ -5,9 +5,10 @@ import sendRequest from "./request.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const loginForm = new Validator("#login-form");
-const loginGoogle = $(".google-submit");
-const googleRedirectURI = $(".google-redirect-uri");
+const loginForm = new Validator(".login__form");
+const loginGoogle = $(".form__google-submit");
+const googleRedirectURI = $(".form__google-redirect-uri");
+const formGroup = $$(".form-group");
 
 loginForm.onSubmit = (formData) => {
     const url = "MainController?action=Login";
@@ -23,6 +24,9 @@ loginForm.onSubmit = (formData) => {
                     message: response.incorrect,
                     type: "error",
                     duration: 3000,
+                });
+                Array.from(formGroup).forEach((grp) => {
+                    grp.classList.add("invalid");
                 });
             } else if (response.verify) {
                 toast({

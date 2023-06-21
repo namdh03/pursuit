@@ -6,6 +6,7 @@
     --primary-color: #005d63;
     --secondary-color: #f1deb4;
     --text-color: #131717;
+    --hover-color: #1e787d;
 }
 
 html {
@@ -113,4 +114,67 @@ button {
     color: #ffffff;
     background-color: #00383c;
     border: 1px solid #00383c;
+}
+
+.btn-effect {
+    --color: #ffffff;
+    position: relative;
+    background-color: transparent;
+}
+
+.btn-effect:hover {
+    color: var(--color);
+}
+
+.btn-effect::before {
+    --color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    background-color: var(--color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease 0.3s;
+}
+
+.btn-effect:hover::before {
+    left: 0;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-control {
+    transition: all ease 0.3s;
+}
+
+.form-control:hover {
+    border-color: var(--primary-color);
+}
+
+.form-group.invalid .form-control {
+    border-color: #ff355b;
+}
+
+.form-group.invalid .form-message {
+    color: #ff355b;
+}
+
+.form-message {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    display: inline-block;
+    font-size: 1.4rem;
+    line-height: 1;
 }

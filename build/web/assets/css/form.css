@@ -1,0 +1,205 @@
+:root {
+    --login-text-color: #566363;
+}
+
+/* ==================== Form Common ==================== */
+.form__container {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 93, 99, 0.8);
+    overflow-y: auto;
+}
+
+.form__inner {
+    margin: auto;
+    position: relative;
+    width: 470px;
+    background: #ffffff;
+    z-index: -1;
+}
+
+.form__inner--login {
+    padding: 30px;
+}
+
+.form__inner--register {
+    padding: 45px 30px;
+}
+
+.form__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form__btn {
+    min-width: 134px;
+    text-align: center;
+}
+
+.form__form-group {
+    margin-bottom: 30px;
+}
+
+.form__form-input {
+    min-width: 100%;
+    padding: 13px 0;
+    outline: transparent;
+    border-width: 0 0 1px 0;
+    border-style: none none solid none;
+    border-color: transparent transparent #c4d1d0 transparent;
+}
+
+.form__form-input::placeholder {
+    font-size: 1.6rem;
+    line-height: 1.75;
+    color: var(--login-text-color);
+}
+
+.form__form-submit {
+    min-width: 100%;
+    --height: 50px;
+}
+
+.form__form-submit:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+.form__separate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--login-text-color);
+}
+
+.form__separate::after,
+.form__separate::before {
+    content: "";
+    display: inline-block;
+    width: 172px;
+    height: 1px;
+    background: #c4d1d0;
+}
+
+.form__socials {
+    margin-top: 16px;
+}
+
+.form__social {
+    margin-top: 16px;
+}
+
+.form__social-btn {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 13px;
+    column-gap: 13px;
+    min-width: 255px;
+    --height: 50px;
+    border-color: var(--login-text-color);
+}
+
+.form__social-btn:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    border-color: var(--primary-color);
+}
+
+.form__social-text {
+    color: var(--login-text-color);
+}
+
+.form__social-text:hover {
+    color: var(--primary-color);
+}
+
+.form__remove-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: -78px;
+    width: 48px;
+    height: 48px;
+    background: var(--secondary-color);
+}
+
+.form__remove-form:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+/* ==================== Login ==================== */
+.login__form {
+    margin-top: 17px;
+}
+
+.login__form-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login__remember {
+    display: flex;
+    align-items: center;
+}
+
+.login__remember-text,
+.login__forgot {
+    color: var(--login-text-color);
+}
+
+.login__remember-text {
+    display: flex;
+    align-items: center;
+    position: relative;
+    user-select: none;
+}
+
+.login__remember-text:hover {
+    cursor: pointer;
+}
+
+.login__remember-text::before,
+.login__remember-text::after {
+    content: "";
+    display: inline-block;
+}
+
+.login__remember-text::before {
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #c4d1d0;
+}
+
+.login__remember-checkbox {
+    display: none;
+}
+
+.login__remember-checkbox:checked ~ .login__remember-text::before {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.login__remember-checkbox:checked ~ .login__remember-text::after {
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    width: 9px;
+    height: 3px;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    rotate: -45deg;
+    transform-origin: bottom left;
+}
+
+/* ==================== Register ==================== */
+.register__form {
+    margin-top: 45px;
+}
