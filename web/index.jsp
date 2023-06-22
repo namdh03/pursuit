@@ -87,8 +87,6 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <a href="login.jsp">Login</a>
-        <br />
-        <a href="register.jsp">Register</a>
+        <jsp:include page="header.jsp"></jsp:include>
     </body>
 </html>
