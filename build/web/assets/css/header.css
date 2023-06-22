@@ -121,7 +121,7 @@
 .header__action-btn--login:hover,
 .navbar__link:hover {
     font-weight: 500;
-    color: var(--hover-color);
+    color: #ffd44d;
 }
 
 .header__action-btn--login::after,
