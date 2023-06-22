@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -87,6 +88,6 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <jsp:include page="header.jsp"></jsp:include>
+        <c:import url="./header.jsp" />
     </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -87,10 +88,15 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <% String error = (String) session.getAttribute("ERROR"); if (error ==
-        null) { error = ""; } String rootPath = request.getScheme() + "://" +
-        request.getServerName() + ":" + request.getServerPort() +
-        request.getContextPath(); %>
+        <c:if test="${sessionScope.USER != null}">
+            <c:redirect url="./" />
+        </c:if>
+
+        <c:set
+            var="rootPath"
+            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"
+        />
+
         <div id="toast"></div>
         <section class="login form__container">
             <div class="form__inner form__inner--login">
@@ -197,7 +203,7 @@
                                     <input
                                         type="hidden"
                                         name="facebook-redirect-uri"
-                                        value="<%= rootPath %>"
+                                        value="${rootPath}"
                                         class="form__facebook-redirect-uri"
                                     />
                                 </div> -->
@@ -220,7 +226,7 @@
                                     <input
                                         type="hidden"
                                         name="google-redirect-uri"
-                                        value="<%= rootPath %>"
+                                        value="${rootPath}"
                                         class="form__google-redirect-uri"
                                     />
                                 </div>
@@ -241,7 +247,7 @@
                                     <input
                                         type="hidden"
                                         name="apple-redirect-uri"
-                                        value="<%= rootPath %>"
+                                        value="${rootPath}"
                                         class="form__apple-redirect-uri"
                                     />
                                 </div> -->
@@ -265,11 +271,14 @@
         <script type="module" src="./assets/js/login.js"></script>
         <script type="module">
             import toast from "./assets/js/toast.js";
+            <c:if test="${sessionScope.ERROR != null}">
+                const showErrorToast = true;
+            </c:if>;
 
-            if ("<%= error%>") {
+            if (showErrorToast) {
                 toast({
                     title: "Error!",
-                    message: "<%= error%>",
+                    message: "${sessionScope.ERROR}",
                     type: "error",
                     duration: 3000,
                 });
