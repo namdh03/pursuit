@@ -100,6 +100,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Home"
                             >
                                 Home
                             </a>
@@ -114,6 +115,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Category"
                             >
                                 Category
                             </a>
@@ -128,6 +130,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Brand"
                             >
                                 Brand
                             </a>
@@ -142,6 +145,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Products"
                             >
                                 Products
                             </a>
@@ -156,6 +160,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="About"
                             >
                                 About
                             </a>
@@ -170,6 +175,7 @@
                             <a
                                 href="./shop.jsp"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Shop"
                             >
                                 Shop
                             </a>
@@ -179,6 +185,7 @@
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
+                                title="Pages"
                             >
                                 Pages
                             </a>

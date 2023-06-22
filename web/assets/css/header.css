@@ -115,4 +115,21 @@
 
 .navbar__link {
     color: #ffffff;
+    text-align: center;
+}
+
+.header__action-btn--login:hover,
+.navbar__link:hover {
+    font-weight: 500;
+    color: var(--hover-color);
+}
+
+.header__action-btn--login::after,
+.navbar__link::after {
+    content: attr(title);
+    display: block;
+    font-weight: 500;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
 }
