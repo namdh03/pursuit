@@ -247,7 +247,7 @@
                         </div>
 
                         <div class="col l-12 m-12 c-12">
-                            <a href="./index.jsp" class="form__remove-form">
+                            <a href="./" class="form__remove-form">
                                 <img
                                     src="./assets/icons/times.svg"
                                     alt=""

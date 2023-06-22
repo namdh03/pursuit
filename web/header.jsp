@@ -87,6 +87,9 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
+        <%
+            response.sendRedirect("./");
+        %>
         <header class="header">
             <div class="grid wide">
                 <div class="row no-gutters">
