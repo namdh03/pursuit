@@ -20,6 +20,10 @@
         <servlet-name>GoogleController</servlet-name>
         <servlet-class>pursuit.controller.GoogleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>pursuit.controller.ProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>GoogleController</servlet-name>
         <url-pattern>/GoogleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/ProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

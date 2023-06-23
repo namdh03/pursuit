@@ -1,7 +1,3 @@
-:root {
-    --login-text-color: #566363;
-}
-
 /* ==================== Form Common ==================== */
 .form__container {
     display: flex;
@@ -54,7 +50,7 @@
 .form__form-input::placeholder {
     font-size: 1.6rem;
     line-height: 1.75;
-    color: var(--login-text-color);
+    color: var(--text-color--light);
 }
 
 .form__form-submit {
@@ -71,7 +67,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--login-text-color);
+    color: var(--text-color--light);
 }
 
 .form__separate::after,
@@ -99,7 +95,7 @@
     column-gap: 13px;
     min-width: 255px;
     --height: 50px;
-    border-color: var(--login-text-color);
+    border-color: var(--text-color--light);
 }
 
 .form__social-btn:hover {
@@ -109,7 +105,7 @@
 }
 
 .form__social-text {
-    color: var(--login-text-color);
+    color: var(--text-color--light);
 }
 
 .form__social-text:hover {
@@ -151,7 +147,7 @@
 
 .login__remember-text,
 .login__forgot {
-    color: var(--login-text-color);
+    color: var(--text-color--light);
 }
 
 .login__remember-text {

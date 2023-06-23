@@ -12,16 +12,18 @@ package pursuit.dto;
 public class ImageDTO {
 
     private int imageId;
-    private ProductDTO product;
+    private ProductVariantDTO productVariant;
     private String imageUrl;
+    private boolean isDefault;
 
     public ImageDTO() {
     }
 
-    public ImageDTO(int imageId, ProductDTO product, String imageUrl) {
+    public ImageDTO(int imageId, ProductVariantDTO productVariant, String imageUrl, boolean isDefault) {
         this.imageId = imageId;
-        this.product = product;
+        this.productVariant = productVariant;
         this.imageUrl = imageUrl;
+        this.isDefault = isDefault;
     }
 
     public int getImageId() {
@@ -32,12 +34,12 @@ public class ImageDTO {
         this.imageId = imageId;
     }
 
-    public ProductDTO getProduct() {
-        return product;
+    public ProductVariantDTO getProductVariant() {
+        return productVariant;
     }
 
-    public void setProduct(ProductDTO product) {
-        this.product = product;
+    public void setProductVariant(ProductVariantDTO productVariant) {
+        this.productVariant = productVariant;
     }
 
     public String getImageUrl() {
@@ -48,8 +50,16 @@ public class ImageDTO {
         this.imageUrl = imageUrl;
     }
 
+    public boolean isIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
     @Override
     public String toString() {
-        return "Image{" + "imageId=" + imageId + ", product=" + product + ", imageUrl=" + imageUrl + '}';
+        return "ImageDTO{" + "imageId=" + imageId + ", productVariant=" + productVariant + ", imageUrl=" + imageUrl + ", isDefault=" + isDefault + '}';
     }
 }

@@ -5,7 +5,8 @@
 :root {
     --primary-color: #005d63;
     --secondary-color: #f1deb4;
-    --text-color: #131717;
+    --text-color--dark: #131717;
+    --text-color--light: #566363;
     --hover-color: #1e787d;
 }
 
@@ -117,6 +118,7 @@ button {
 }
 
 .btn-effect {
+    --border-radius: 0px;
     --color: #ffffff;
     --bg-color: var(--primary-color);
     position: sticky;
@@ -137,6 +139,7 @@ button {
     width: 0;
     height: 100%;
     background-color: var(--bg-color);
+    border-radius: var(--border-radius);
     opacity: 0;
     visibility: hidden;
     transition: all ease 0.3s;

@@ -9,7 +9,7 @@ package pursuit.dto;
  *
  * @author namdh
  */
-public class ProductDTO {
+public class ProductDTO extends ImageDTO {
 
     private int productId;
     private CategoryDTO category;

@@ -27,6 +27,8 @@ public class MainController extends HttpServlet {
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String GOOGLE = "Google";
     private static final String GOOGLE_CONTROLLER = "GoogleController";
+    private static final String PRODUCT = "Product";
+    private static final String PRODUCT_CONTROLLER = "ProductController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,6 +59,9 @@ public class MainController extends HttpServlet {
                     break;
                 case GOOGLE:
                     url = GOOGLE_CONTROLLER;
+                    break;
+                case PRODUCT:
+                    url = PRODUCT_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;

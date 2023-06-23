@@ -15,19 +15,21 @@ public class ProductVariantDTO {
     private ProductDTO product;
     private String variantSize;
     private String variantColor;
-    private double price;
+    private float price;
     private int quantity;
+    private boolean isDefault;
 
     public ProductVariantDTO() {
     }
 
-    public ProductVariantDTO(int productVariantId, ProductDTO product, String variantSize, String variantColor, double price, int quantity) {
+    public ProductVariantDTO(int productVariantId, ProductDTO product, String variantSize, String variantColor, float price, int quantity, boolean isDefault) {
         this.productVariantId = productVariantId;
         this.product = product;
         this.variantSize = variantSize;
         this.variantColor = variantColor;
         this.price = price;
         this.quantity = quantity;
+        this.isDefault = isDefault;
     }
 
     public int getProductVariantId() {
@@ -62,11 +64,11 @@ public class ProductVariantDTO {
         this.variantColor = variantColor;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -78,8 +80,16 @@ public class ProductVariantDTO {
         this.quantity = quantity;
     }
 
+    public boolean isIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
     @Override
     public String toString() {
-        return "ProductVariant{" + "productVariantId=" + productVariantId + ", product=" + product + ", variantSize=" + variantSize + ", variantColor=" + variantColor + ", price=" + price + ", quantity=" + quantity + '}';
+        return "ProductVariantDTO{" + "productVariantId=" + productVariantId + ", product=" + product + ", variantSize=" + variantSize + ", variantColor=" + variantColor + ", price=" + price + ", quantity=" + quantity + ", isDefault=" + isDefault + '}';
     }
 }
