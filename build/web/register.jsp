@@ -269,8 +269,9 @@
         <script type="module" src="./assets/js/register.js"></script>
         <script type="module">
             import toast from "./assets/js/toast.js";
+            let showErrorToast = false;
             <c:if test="${sessionScope.ERROR != null}">
-                const showErrorToast = true;
+                showErrorToast = true;
             </c:if>;
 
             if (showErrorToast) {

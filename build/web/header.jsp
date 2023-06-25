@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Import Header -->
-<% response.sendRedirect("./"); %>
+<% response.sendRedirect("./");%>
 
 <header class="header">
     <div class="grid wide">
@@ -18,20 +18,28 @@
             <div class="col l-11 m-11 c-11">
                 <div class="header__body">
                     <div class="header__search">
-                        <input
-                            id="search"
-                            name="search"
-                            type="text"
-                            placeholder="Search for anything"
-                            class="header__search-input paragraph paragraph--tertiary"
-                        />
-                        <div class="header__search-icon-wrapper">
-                            <img
-                                src="./assets/icons/search.svg"
-                                alt=""
-                                class="header__search-icon"
+                        <form action="MainController" method="GET">
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="Product"
                             />
-                        </div>
+                            <input
+                                id="search"
+                                name="search"
+                                type="text"
+                                placeholder="Search for anything"
+                                class="header__search-input paragraph paragraph--tertiary"
+                                value="${param.search}"
+                            />
+                            <button class="header__search-icon-wrapper">
+                                <img
+                                    src="./assets/icons/search.svg"
+                                    alt=""
+                                    class="header__search-icon"
+                                />
+                            </button>
+                        </form>
                     </div>
 
                     <c:if test="${sessionScope.USER != null}">
@@ -171,9 +179,12 @@
                             />
                         </li>
 
+                        <c:url var="shop" value="MainController">
+                            <c:param name="action" value="Product" />
+                        </c:url>
                         <li class="navbar__item">
                             <a
-                                href="./shop.jsp"
+                                href="${shop}"
                                 class="navbar__link paragraph paragraph--secondary"
                                 title="Shop"
                             >

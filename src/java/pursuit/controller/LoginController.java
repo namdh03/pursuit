@@ -11,21 +11,20 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.dto.AccountDTO;
-import pursuit.dto.CustomerDTO;
-import pursuit.utils.Email;
 import pursuit.utils.Encode;
-import pursuit.utils.RandomString;
 
 /**
  *
  * @author namdh
  */
+@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
     /**
@@ -59,7 +58,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("USER", adto);
             }
         } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at LoginController: " + e.toString());
         } finally {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

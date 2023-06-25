@@ -8,6 +8,7 @@ package pursuit.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namdh
  */
+@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
 
     private static final String WELCOME_PAGE = "index.jsp";
@@ -29,6 +31,8 @@ public class MainController extends HttpServlet {
     private static final String GOOGLE_CONTROLLER = "GoogleController";
     private static final String PRODUCT = "Product";
     private static final String PRODUCT_CONTROLLER = "ProductController";
+    private static final String LOAD_MORE = "LoadMore";
+    private static final String LOAD_MORE_CONTROLLER = "LoadMoreController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,6 +66,9 @@ public class MainController extends HttpServlet {
                     break;
                 case PRODUCT:
                     url = PRODUCT_CONTROLLER;
+                    break;
+                case LOAD_MORE:
+                    url = LOAD_MORE_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;

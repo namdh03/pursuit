@@ -46,6 +46,8 @@
     width: 44px;
     height: 44px;
     background-color: #ffd44d;
+    outline: transparent;
+    border: transparent;
 }
 
 .header__search-icon-wrapper:hover {
@@ -79,7 +81,7 @@
 }
 
 .header__action-btn {
-    min-width: 108px;
+    --width: 108px;
     --height: 44px;
     color: #ffffff;
     text-align: center;
@@ -104,13 +106,16 @@
 .navbar__list {
     margin-top: 28px;
     display: flex;
-    column-gap: 40px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 
 .navbar__item {
     display: flex;
     align-items: center;
     column-gap: 6px;
+    padding: 0 20px;
+    cursor: pointer;
 }
 
 .navbar__link {
@@ -119,7 +124,7 @@
 }
 
 .header__action-btn--login:hover,
-.navbar__link:hover {
+.navbar__item:hover .navbar__link {
     font-weight: 500;
     color: #ffd44d;
 }

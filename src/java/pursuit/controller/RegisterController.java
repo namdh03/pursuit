@@ -11,11 +11,11 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pursuit.dao.AccountDAO;
-import pursuit.utils.DBUtils;
 import pursuit.utils.Email;
 import pursuit.utils.Encode;
 import pursuit.utils.RandomString;
@@ -24,6 +24,7 @@ import pursuit.utils.RandomString;
  *
  * @author namdh
  */
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
 public class RegisterController extends HttpServlet {
 
     /**

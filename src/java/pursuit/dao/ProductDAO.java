@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import pursuit.dto.CategoryDTO;
@@ -22,9 +23,10 @@ import pursuit.utils.DBUtils;
  */
 public class ProductDAO {
 
-    private static final String GET_PRODUCT_LIST = "{CALL GetProductList(?, ?)}";
+    public int TOTAL_PRODUCT = 0;
+    private static final String GET_PRODUCT_LIST = "{CALL GetProductList(?, ?, ?, ?)}";
 
-    public List<ProductDTO> getProductList(int pageNumber, int pageSize) throws SQLException {
+    public List<ProductDTO> getProductList(int pageNumber, int pageSize, String search) throws SQLException {
         Connection c = null;
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -37,6 +39,8 @@ public class ProductDAO {
                 cs = c.prepareCall(GET_PRODUCT_LIST);
                 cs.setInt(1, pageNumber);
                 cs.setInt(2, pageSize);
+                cs.setString(3, search);
+                cs.registerOutParameter(4, Types.INTEGER);
                 rs = cs.executeQuery();
 
                 while (rs.next()) {
@@ -64,6 +68,8 @@ public class ProductDAO {
 
                     list.add(pdto);
                 }
+
+                TOTAL_PRODUCT = cs.getInt(4);
             }
         } catch (Exception e) {
         } finally {

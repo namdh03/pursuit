@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import pursuit.utils.Google;
  *
  * @author namdh
  */
+@WebServlet(name = "GoogleController", urlPatterns = {"/GoogleController"})
 public class GoogleController extends HttpServlet {
 
     private static final String SUCCESS = "index.jsp";
@@ -45,7 +47,7 @@ public class GoogleController extends HttpServlet {
         String refresh_token = request.getParameter("code");
         String authentication_token = Google.getToken(refresh_token);
         GoogleDTO gdto = Google.getUser(authentication_token);
-        
+
         Gson gson = new Gson();
         Map<String, Object> data = new HashMap<>();
         HttpSession session = request.getSession();

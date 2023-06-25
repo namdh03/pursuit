@@ -5,25 +5,22 @@
  */
 package pursuit.controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pursuit.dao.AccountDAO;
 import pursuit.dto.AccountDTO;
-import pursuit.utils.Email;
 import pursuit.utils.Encode;
-import pursuit.utils.RandomString;
 
 /**
  *
  * @author namdh
  */
+@WebServlet(name = "VerifyController", urlPatterns = {"/VerifyController"})
 public class VerifyController extends HttpServlet {
 
     /**
@@ -54,7 +51,7 @@ public class VerifyController extends HttpServlet {
                 out.println("function closeTab() {");
                 out.println("    setTimeout(function() {");
                 out.println("        window.close();");
-                out.println("    }, 500);"); 
+                out.println("    }, 500);");
                 out.println("}");
                 out.println("</script>");
                 out.println("</head>");
@@ -70,7 +67,7 @@ public class VerifyController extends HttpServlet {
                 out.println("function closeTab() {");
                 out.println("    setTimeout(function() {");
                 out.println("        window.close();");
-                out.println("    }, 500);"); 
+                out.println("    }, 500);");
                 out.println("}");
                 out.println("</script>");
                 out.println("</head>");
@@ -80,7 +77,7 @@ public class VerifyController extends HttpServlet {
                 out.println("</html>");
             }
         } catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at VerifyController: " + e.toString());
         }
     }
 

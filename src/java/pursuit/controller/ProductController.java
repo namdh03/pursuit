@@ -5,13 +5,11 @@
  */
 package pursuit.controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +20,11 @@ import pursuit.dto.ProductDTO;
  *
  * @author namdh
  */
+@WebServlet(name = "ProductController", urlPatterns = {"/ProductController"})
 public class ProductController extends HttpServlet {
+
+    private static final String SUCCESS = "shop.jsp";
+    private static final String ERROR = "index.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +38,33 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int page = Integer.parseInt(request.getParameter("page"));
-        int size = Integer.parseInt(request.getParameter("size"));
-        Gson gson = new Gson();
-        List<ProductDTO> list = null;
-
+        String url = ERROR;
+        String page = request.getParameter("page");
+        String size = request.getParameter("size");
+        String search = request.getParameter("search");
+        
         try {
+            if (page == null) {
+                page = "1";
+            }
+            
+            if (size == null) {
+                size = "9";
+            }
+            
             ProductDAO pdao = new ProductDAO();
-            list = pdao.getProductList(page, size);
+            List<ProductDTO> list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search);
+            int totalProducts = pdao.TOTAL_PRODUCT;
+            
+            if (totalProducts > 0) {
+                request.setAttribute("PRODUCT_LIST", list);
+                request.setAttribute("TOTAL_PRODUCTS", totalProducts);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
             log("Error at ProductController: " + e.toString());
         } finally {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(list));
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
