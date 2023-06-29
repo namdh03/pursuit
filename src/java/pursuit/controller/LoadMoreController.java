@@ -40,6 +40,7 @@ public class LoadMoreController extends HttpServlet {
         String page = request.getParameter("page");
         String size = request.getParameter("size");
         String search = request.getParameter("search");
+        String categoryID = request.getParameter("categoryID");
         Gson gson = new Gson();
         JsonObject json = new JsonObject();
         List<ProductDTO> list = null;
@@ -54,7 +55,7 @@ public class LoadMoreController extends HttpServlet {
             }
 
             ProductDAO pdao = new ProductDAO();
-            list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search);
+            list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID);
             int totalProducts = pdao.TOTAL_PRODUCT;
             json.add("productList", gson.toJsonTree(list));
             json.addProperty("totalProducts", totalProducts);

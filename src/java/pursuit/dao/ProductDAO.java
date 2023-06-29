@@ -24,9 +24,9 @@ import pursuit.utils.DBUtils;
 public class ProductDAO {
 
     public int TOTAL_PRODUCT = 0;
-    private static final String GET_PRODUCT_LIST = "{CALL GetProductList(?, ?, ?, ?)}";
+    private static final String GET_PRODUCT_LIST = "{CALL GetProductList(?, ?, ?, ?, ?)}";
 
-    public List<ProductDTO> getProductList(int pageNumber, int pageSize, String search) throws SQLException {
+    public List<ProductDTO> getProductList(int pageNumber, int pageSize, String search, String categoryCode) throws SQLException {
         Connection c = null;
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -40,7 +40,8 @@ public class ProductDAO {
                 cs.setInt(1, pageNumber);
                 cs.setInt(2, pageSize);
                 cs.setString(3, search);
-                cs.registerOutParameter(4, Types.INTEGER);
+                cs.setString(4, categoryCode);
+                cs.registerOutParameter(5, Types.INTEGER);
                 rs = cs.executeQuery();
 
                 while (rs.next()) {
@@ -65,11 +66,10 @@ public class ProductDAO {
                     pvdto.setPrice(price);
                     pdto.setProductVariant(pvdto);
                     pdto.setImageUrl(imageURL);
-
                     list.add(pdto);
                 }
 
-                TOTAL_PRODUCT = cs.getInt(4);
+                TOTAL_PRODUCT = cs.getInt(5);
             }
         } catch (Exception e) {
         } finally {

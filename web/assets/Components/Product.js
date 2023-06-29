@@ -56,7 +56,10 @@ export default {
                             <div class="col l-4 m-4 c-4">
                                 <article class="product__item">
                                     <div class="product__item-header">
-                                        <a href="#!" class="product__item-link">
+                                        <a
+                                            href="MainController?action=Detail&productId=${item.productId}"
+                                            class="product__item-link"
+                                        >
                                             <img
                                                 src="${item.imageUrl}"
                                                 alt="${item.productName}"
@@ -74,7 +77,17 @@ export default {
                                     <section class="product__item-body">
                                         <div class="product__item-row">
                                             <a
-                                                href="#!"
+                                                href="MainController?action=Product&categoryID=${item
+                                                    .category.categoryId}"
+                                                class="product__item-category paragraph paragraph--secondary"
+                                            >
+                                                ${item.category.categoryName}
+                                            </a>
+                                        </div>
+
+                                        <div class="product__item-row">
+                                            <a
+                                                href="MainController?action=Detail&productId=${item.productId}"
                                                 class="product__item-link"
                                             >
                                                 <h2

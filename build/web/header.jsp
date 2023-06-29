@@ -2,6 +2,16 @@
 <!-- Import Header -->
 <% response.sendRedirect("./");%>
 
+<c:if test="${empty sessionScope.CATEGORY_LIST}">
+    <c:url var="categoryUrl" value="MainController">
+        <c:param name="action" value="Category" />
+    </c:url>
+
+    <script>
+        window.location.href = "${categoryUrl}";
+    </script>
+</c:if>
+
 <header class="header">
     <div class="grid wide">
         <div class="row no-gutters">
@@ -24,6 +34,14 @@
                                 name="action"
                                 value="Product"
                             />
+
+                            <c:if test="${requestScope.CATEGORY_ID != null}">
+                                <input
+                                    type="hidden"
+                                    name="categoryID"
+                                    value="${requestScope.CATEGORY_ID}"
+                                />
+                            </c:if>
                             <input
                                 id="search"
                                 name="search"
@@ -106,20 +124,15 @@
                     <ul class="navbar__list">
                         <li class="navbar__item">
                             <a
-                                href="#!"
+                                href="./"
                                 class="navbar__link paragraph paragraph--secondary"
                                 title="Home"
                             >
                                 Home
                             </a>
-                            <img
-                                src="./assets/icons/arrow-down.svg"
-                                alt=""
-                                class="navbar__icon"
-                            />
                         </li>
 
-                        <li class="navbar__item">
+                        <li class="navbar__item navbar__item--drop-down">
                             <a
                                 href="#!"
                                 class="navbar__link paragraph paragraph--secondary"
@@ -132,51 +145,45 @@
                                 alt=""
                                 class="navbar__icon"
                             />
-                        </li>
 
-                        <li class="navbar__item">
-                            <a
-                                href="#!"
-                                class="navbar__link paragraph paragraph--secondary"
-                                title="Brand"
-                            >
-                                Brand
-                            </a>
-                            <img
-                                src="./assets/icons/arrow-down.svg"
-                                alt=""
-                                class="navbar__icon"
-                            />
-                        </li>
-
-                        <li class="navbar__item">
-                            <a
-                                href="#!"
-                                class="navbar__link paragraph paragraph--secondary"
-                                title="Products"
-                            >
-                                Products
-                            </a>
-                            <img
-                                src="./assets/icons/arrow-down.svg"
-                                alt=""
-                                class="navbar__icon"
-                            />
-                        </li>
-
-                        <li class="navbar__item">
-                            <a
-                                href="#!"
-                                class="navbar__link paragraph paragraph--secondary"
-                                title="About"
-                            >
-                                About
-                            </a>
-                            <img
-                                src="./assets/icons/arrow-down.svg"
-                                alt=""
-                                class="navbar__icon"
-                            />
+                            <ul class="navbar__popup-list">
+                                <c:forEach
+                                    var="o"
+                                    items="${sessionScope.CATEGORY_LIST}"
+                                >
+                                    <li
+                                        class="navbar__popup-item ${requestScope.CATEGORY_ID == o.categoryId ? 'navbar__popup-item--active' : ''}"
+                                    >
+                                        <c:url
+                                            var="productUrl"
+                                            value="MainController"
+                                        >
+                                            <c:param
+                                                name="action"
+                                                value="Product"
+                                            />
+                                            <c:param
+                                                name="categoryID"
+                                                value="${o.categoryId}"
+                                            />
+                                            <c:if
+                                                test="${param.search != null}"
+                                            >
+                                                <c:param
+                                                    name="search"
+                                                    value="${param.search}"
+                                                />
+                                            </c:if>
+                                        </c:url>
+                                        <a
+                                            href="${productUrl}"
+                                            class="navbar__popup-link paragraph paragraph--secondary"
+                                        >
+                                            ${o.categoryName}
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
                         </li>
 
                         <c:url var="shop" value="MainController">
@@ -190,21 +197,6 @@
                             >
                                 Shop
                             </a>
-                        </li>
-
-                        <li class="navbar__item">
-                            <a
-                                href="#!"
-                                class="navbar__link paragraph paragraph--secondary"
-                                title="Pages"
-                            >
-                                Pages
-                            </a>
-                            <img
-                                src="./assets/icons/arrow-down.svg"
-                                alt=""
-                                class="navbar__icon"
-                            />
                         </li>
                     </ul>
                 </nav>

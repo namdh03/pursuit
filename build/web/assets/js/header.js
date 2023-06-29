@@ -6,12 +6,14 @@ const headerSearchBtn = $(".header__search-icon-wrapper");
 
 export default {
     isSearch() {
-        headerSearchBtn.onclick = () => {
-            if (headerSearchInput.value === "") {
-                headerSearchBtn.type = "button";
-            } else {
-                headerSearchBtn.type = "submit";
-            }
-        };
+        if (headerSearchBtn) {
+            headerSearchBtn.onclick = () => {
+                if (headerSearchInput.value === "") {
+                    headerSearchBtn.type = "button";
+                } else {
+                    headerSearchBtn.type = "submit";
+                }
+            };
+        }
     },
 };

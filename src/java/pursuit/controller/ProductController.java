@@ -24,7 +24,7 @@ import pursuit.dto.ProductDTO;
 public class ProductController extends HttpServlet {
 
     private static final String SUCCESS = "shop.jsp";
-    private static final String ERROR = "index.jsp";
+    private static final String ERROR = "shop.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,19 +42,21 @@ public class ProductController extends HttpServlet {
         String page = request.getParameter("page");
         String size = request.getParameter("size");
         String search = request.getParameter("search");
-        
+        String categoryID = request.getParameter("categoryID");
+
         try {
             if (page == null) {
                 page = "1";
             }
-            
+
             if (size == null) {
                 size = "9";
             }
-            
+
             ProductDAO pdao = new ProductDAO();
-            List<ProductDTO> list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search);
+            List<ProductDTO> list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID);
             int totalProducts = pdao.TOTAL_PRODUCT;
+            request.setAttribute("CATEGORY_ID", categoryID);
             
             if (totalProducts > 0) {
                 request.setAttribute("PRODUCT_LIST", list);

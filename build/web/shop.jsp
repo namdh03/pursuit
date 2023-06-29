@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pursuit</title>
 
+        <!-- Check URL -->
+        <script src="./assets/js/shop.js"></script>
+
         <!-- Embed Favicon -->
         <link
             rel="apple-touch-icon"
@@ -164,7 +167,19 @@
 
                         <div class="col l-12 m-12 c-12">
                             <div class="product__list">
-                                <div class="row">
+                                <div class="row row--gap-30 lg-gutter">
+                                    <c:if
+                                        test="${empty requestScope.PRODUCT_LIST}"
+                                    >
+                                        <div class="col l-12 m-12 c-12">
+                                            <p
+                                                class="product__empty paragraph paragraph--primary"
+                                            >
+                                                No results found
+                                            </p>
+                                        </div>
+                                    </c:if>
+
                                     <c:forEach
                                         var="o"
                                         items="${requestScope.PRODUCT_LIST}"
@@ -174,8 +189,21 @@
                                                 <div
                                                     class="product__item-header"
                                                 >
+                                                    <c:url
+                                                        var="detailUrl"
+                                                        value="MainController"
+                                                    >
+                                                        <c:param
+                                                            name="action"
+                                                            value="Detail"
+                                                        />
+                                                        <c:param
+                                                            name="productId"
+                                                            value="${o.productId}"
+                                                        />
+                                                    </c:url>
                                                     <a
-                                                        href="#!"
+                                                        href="${detailUrl}"
                                                         class="product__item-link"
                                                     >
                                                         <img
@@ -198,8 +226,32 @@
                                                     <div
                                                         class="product__item-row"
                                                     >
+                                                        <c:url
+                                                            var="categoryByIdUrl"
+                                                            value="MainController"
+                                                        >
+                                                            <c:param
+                                                                name="action"
+                                                                value="Product"
+                                                            />
+                                                            <c:param
+                                                                name="categoryID"
+                                                                value="${o.category.categoryId}"
+                                                            />
+                                                        </c:url>
                                                         <a
-                                                            href="#!"
+                                                            href="${categoryByIdUrl}"
+                                                            class="product__item-category paragraph paragraph--secondary"
+                                                        >
+                                                            ${o.category.categoryName}
+                                                        </a>
+                                                    </div>
+
+                                                    <div
+                                                        class="product__item-row"
+                                                    >
+                                                        <a
+                                                            href="${detailUrl}"
                                                             class="product__item-link"
                                                         >
                                                             <h2
@@ -248,7 +300,7 @@
                                                         <p
                                                             class="product__item-price button-text"
                                                         >
-                                                            ${o.getProductVariant().price}
+                                                            $${o.getProductVariant().price}
                                                         </p>
                                                     </div>
                                                 </section>

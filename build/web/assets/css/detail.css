@@ -1,0 +1,265 @@
+/* ==================== Detail ==================== */
+.detail {
+    padding: 100px 0 150px;
+}
+
+.detail__img-wrapper {
+    width: 585px;
+    height: 100%;
+}
+
+.detail__main-img {
+    display: block;
+    width: 100%;
+    height: 584px;
+    object-fit: cover;
+}
+
+.detail__content {
+    margin-left: 115px;
+    width: 470px;
+}
+
+.detail__category {
+    color: var(--text-color--light);
+}
+
+.detail__heading {
+    margin-top: 4px;
+}
+
+.detail__price-wrapper {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.detail__price--main {
+    position: relative;
+    color: var(--text-color--light);
+}
+
+.detail__price--main::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-color--light);
+}
+
+.detail__price--discount {
+    font-weight: 600;
+    color: #f86624;
+}
+
+.detail__rating {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+}
+
+.detail__rating-value {
+    color: var(--text-color--light);
+}
+
+.detail__color {
+    margin-top: 21px;
+    display: flex;
+    align-items: center;
+}
+
+.detail__text {
+    min-width: 55px;
+}
+
+.detail__list {
+    margin-left: 14px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.detail__size-item,
+.detail__color-item {
+    user-select: none;
+}
+
+.detail__radio {
+    display: none;
+}
+
+.detail__label {
+    display: inline-block;
+    padding: 4px 12px;
+    height: 34px;
+    color: var(--text-color--light);
+    border: 1px solid #c4d1d0;
+}
+
+.detail__label--empty {
+    color: #ff355b;
+    border-color: #ff355b;
+}
+
+.detail__label:hover {
+    cursor: pointer;
+}
+
+.detail__label--hidden {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.detail__label--hidden .detail__radio {
+    pointer-events: none;
+}
+
+.detail__label--hidden:hover {
+    cursor: default;
+}
+
+.detail__label:has(:checked) {
+    color: #ffffff;
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+}
+
+.detail__size {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.detail__qty {
+    margin-top: 9px;
+    display: flex;
+    align-items: center;
+}
+
+.detail__qty-value {
+    margin-left: 12px;
+    color: var(--text-color--light);
+}
+
+.detail__desc {
+    margin-top: 25px;
+    color: var(--text-color--light);
+}
+
+.detail__btn-add-cart {
+    --width: 100%;
+    --bg-color: #ffffff;
+    --color: var(--primary-color);
+    margin-top: 39px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.detail__btn-checkout {
+    --width: 100%;
+    --bg-color: #ffffff;
+    --color: #000000;
+    margin-top: 18px;
+    display: block;
+    text-align: center;
+    background-color: #ffd44d;
+    border-color: #ffd44d;
+    color: var(--text-color--dark);
+}
+
+.detail__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c4d1d0;
+    outline: transparent;
+    border: transparent;
+    width: 34px;
+    height: 34px;
+    transition: all ease 0.3s;
+}
+
+.detail__btn:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.detail__btn:hover .detail__btn-icon {
+    color: #ffffff;
+}
+
+.detail__btn-icon {
+    color: var(--text-color--dark);
+}
+
+.detail__qty-input {
+    background-color: #ffffff;
+    border: 1px solid #c4d1d0;
+    outline: transparent;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+}
+
+.detail__image-list,
+.detail__images-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 18px;
+}
+
+.detail__images-wrapper {
+    margin-top: 18px;
+    height: 100px;
+}
+
+.detail__image-list {
+    position: relative;
+    width: 454px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.detail__image-item {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transition: all ease 0.3s;
+}
+
+.detail__image-item:hover {
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+}
+
+.detail__image-item--active {
+    border: 1px solid var(--text-color--dark);
+}
+
+.detail__image {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    display: inline-block;
+}
+
+.detail__image-btn {
+    flex: 1;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: transparent;
+    border: transparent;
+    background-color: transparent;
+    cursor: pointer;
+}

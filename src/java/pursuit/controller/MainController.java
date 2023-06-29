@@ -33,6 +33,14 @@ public class MainController extends HttpServlet {
     private static final String PRODUCT_CONTROLLER = "ProductController";
     private static final String LOAD_MORE = "LoadMore";
     private static final String LOAD_MORE_CONTROLLER = "LoadMoreController";
+    private static final String CATEGORY = "Category";
+    private static final String CATEGORY_CONTROLLER = "CategoryController";
+    private static final String DETAIL = "Detail";
+    private static final String DETAIL_CONTROLLER = "DetailController";
+    private static final String SIZE = "Size";
+    private static final String SIZE_CONTROLLER = "SizeController";
+    private static final String COLOR = "Color";
+    private static final String COLOR_CONTROLLER = "ColorController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,6 +77,18 @@ public class MainController extends HttpServlet {
                     break;
                 case LOAD_MORE:
                     url = LOAD_MORE_CONTROLLER;
+                    break;
+                case CATEGORY:
+                    url = CATEGORY_CONTROLLER;
+                    break;
+                case DETAIL:
+                    url = DETAIL_CONTROLLER;
+                    break;
+                case SIZE:
+                    url = SIZE_CONTROLLER;
+                    break;
+                case COLOR:
+                    url = COLOR_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;

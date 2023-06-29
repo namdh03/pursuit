@@ -13,8 +13,8 @@ public class ProductVariantDTO {
 
     private int productVariantId;
     private ProductDTO product;
-    private String variantSize;
-    private String variantColor;
+    private SizeDTO variantSize;
+    private ColorDTO variantColor;
     private float price;
     private int quantity;
     private boolean isDefault;
@@ -22,7 +22,7 @@ public class ProductVariantDTO {
     public ProductVariantDTO() {
     }
 
-    public ProductVariantDTO(int productVariantId, ProductDTO product, String variantSize, String variantColor, float price, int quantity, boolean isDefault) {
+    public ProductVariantDTO(int productVariantId, ProductDTO product, SizeDTO variantSize, ColorDTO variantColor, float price, int quantity, boolean isDefault) {
         this.productVariantId = productVariantId;
         this.product = product;
         this.variantSize = variantSize;
@@ -48,19 +48,19 @@ public class ProductVariantDTO {
         this.product = product;
     }
 
-    public String getVariantSize() {
+    public SizeDTO getVariantSize() {
         return variantSize;
     }
 
-    public void setVariantSize(String variantSize) {
+    public void setVariantSize(SizeDTO variantSize) {
         this.variantSize = variantSize;
     }
 
-    public String getVariantColor() {
+    public ColorDTO getVariantColor() {
         return variantColor;
     }
 
-    public void setVariantColor(String variantColor) {
+    public void setVariantColor(ColorDTO variantColor) {
         this.variantColor = variantColor;
     }
 
