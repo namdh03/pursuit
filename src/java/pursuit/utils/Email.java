@@ -21,10 +21,10 @@ import javax.mail.internet.MimeMessage;
  */
 public class Email {
     // Email: namdhse172173@fpt.edu.vn
-    // Password: kqjxoixgtcdvywld
+    // Password: trymqxmuikyxmhgw
 
     private static final String EMAIL = "namdhse172173@fpt.edu.vn";
-    private static final String PASSWORD = "kqjxoixgtcdvywld";
+    private static final String PASSWORD = "trymqxmuikyxmhgw";
 
     public static boolean sendEmail(String to, String title, String content) {
         String from = EMAIL;

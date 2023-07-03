@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
+import pursuit.dao.CartItemDAO;
 import pursuit.dto.AccountDTO;
+import pursuit.dto.CartItemDTO;
 import pursuit.dto.GoogleDTO;
 import pursuit.utils.Google;
 
@@ -59,6 +62,11 @@ public class GoogleController extends HttpServlet {
             if (check) {
                 AccountDTO adto = adao.getUserInformation(gdto.getId(), "GOOGLE_ID");
                 session.setAttribute("USER", adto);
+                
+                CartItemDAO cidao = new CartItemDAO();
+                List<CartItemDTO> list = cidao.getListCartItemByCID(adto.getCustomer().getCustomerId());
+                session.setAttribute("CART", list);
+                
                 url = SUCCESS;
             } else {
                 session.setAttribute("ERROR", "Failed to log in with Google. Please try again or use another login method");

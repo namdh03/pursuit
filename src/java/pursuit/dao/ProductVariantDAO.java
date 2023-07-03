@@ -43,7 +43,7 @@ public class ProductVariantDAO {
             + "JOIN products p ON pv.product_id = p.product_id "
             + "WHERE  pv.product_id = ? AND  pv.size_id = ? "
             + "ORDER BY c.color_id";
-    
+
     private static final String GET_LIST_SIZE_BY_CID = "SELECT pv.product_variant_id, pv.price, pv.quantity, pv.is_default, "
             + "s.size_id, s.size_name, "
             + "c.color_id, c.color_name "
@@ -53,6 +53,10 @@ public class ProductVariantDAO {
             + "JOIN products p ON pv.product_id = p.product_id "
             + "WHERE  pv.product_id = ? AND  pv.color_id = ? "
             + "ORDER BY s.size_id";
+
+    private static final String GET_QTY_BY_PVID = "SELECT pv.quantity\n"
+            + "FROM product_variants pv\n"
+            + "WHERE pv.product_variant_id = ?";
 
     public ProductVariantDTO getPVByProductID(String code) throws SQLException {
         Connection c = null;
@@ -154,7 +158,7 @@ public class ProductVariantDAO {
 
         return list;
     }
-    
+
     public List<ProductVariantDTO> getPVByColorID(String pId, String sId) throws SQLException {
         Connection c = null;
         PreparedStatement ps = null;
@@ -201,5 +205,39 @@ public class ProductVariantDAO {
         }
 
         return list;
+    }
+
+    public int getQtyByPVID(int pvId) throws SQLException {
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int qty = 0;
+
+        try {
+            c = DBUtils.getConnection();
+            
+            if (c != null) {
+                ps = c.prepareCall(GET_QTY_BY_PVID);
+                ps.setInt(1, pvId);
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    qty = rs.getInt("quantity");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+        
+        return qty;
     }
 }

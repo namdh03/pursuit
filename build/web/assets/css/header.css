@@ -50,6 +50,11 @@
     border: transparent;
 }
 
+.header__icon-wrapper:hover .header__icon,
+.header__icon-wrapper:hover .header__icon-value {
+    color: #ffd44d;
+}
+
 .header__search-icon-wrapper:hover {
     opacity: 0.9;
     cursor: pointer;
@@ -71,6 +76,7 @@
     cursor: pointer;
 }
 
+.header__icon,
 .header__icon-value {
     color: #ffffff;
 }

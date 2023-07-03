@@ -35,10 +35,20 @@ button {
     font-family: inherit;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 /* ==================== Common ==================== */
 .heading {
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--text-color--dark);
 }
 
 .heading--primary {
@@ -67,12 +77,12 @@ button {
     font-weight: 600;
     font-size: 1.8rem;
     line-height: 1.67;
-    color: var(--text-color);
+    color: var(--text-color--dark);
 }
 
 .paragraph {
     font-weight: 400;
-    color: var(--text-color);
+    color: var(--text-color--dark);
 }
 
 .paragraph--primary {

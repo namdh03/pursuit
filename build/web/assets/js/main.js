@@ -1,7 +1,9 @@
-import header from "./header.js";
-import detail from "./detail.js";
+import Header from "./header.js";
+import Detail from "./detail.js";
+import Cart from "./cart.js";
 import { Product } from "../Components/index.js";
 
-header.isSearch();
-detail.start();
+Header.isSearch();
+Detail.start();
+Cart.start();
 Product.start();

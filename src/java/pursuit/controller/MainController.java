@@ -41,6 +41,12 @@ public class MainController extends HttpServlet {
     private static final String SIZE_CONTROLLER = "SizeController";
     private static final String COLOR = "Color";
     private static final String COLOR_CONTROLLER = "ColorController";
+    private static final String ADD_TO_CART = "AddToCart";
+    private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
+    private static final String DELETE_CART = "DeleteCart";
+    private static final String DELETE_CART_CONTROLLER = "DeleteCartController";
+    private static final String UPDATE_CART = "UpdateCart";
+    private static final String UPDATE_CART_CONTROLLER = "UpdateCartController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -89,6 +95,15 @@ public class MainController extends HttpServlet {
                     break;
                 case COLOR:
                     url = COLOR_CONTROLLER;
+                    break;
+                case ADD_TO_CART:
+                    url = ADD_TO_CART_CONTROLLER;
+                    break;
+                case DELETE_CART:
+                    url = DELETE_CART_CONTROLLER;
+                    break;
+                case UPDATE_CART:
+                    url = UPDATE_CART_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;

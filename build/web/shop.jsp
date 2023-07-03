@@ -87,6 +87,19 @@
         />
         <meta name="theme-color" content="#ffffff" />
 
+        <!-- Embed Font Awesome -->
+        <link
+            rel="preconnect"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
         <!-- Styles CSS -->
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
@@ -94,6 +107,7 @@
         <c:import url="./header.jsp" />
 
         <main>
+            <div id="toast"></div>
             <section class="product">
                 <div class="grid wide">
                     <div class="row">
@@ -185,7 +199,11 @@
                                         items="${requestScope.PRODUCT_LIST}"
                                     >
                                         <div class="col l-4 m-4 c-4">
-                                            <article class="product__item">
+                                            <article
+                                                class="product__item"
+                                                data-p-id="${o.productId}"
+                                                data-pv-id="${o.productVariant.productVariantId}"
+                                            >
                                                 <div
                                                     class="product__item-header"
                                                 >

@@ -49,12 +49,17 @@ export default {
                     );
                 }
 
-                divEl.setAttribute("class", "row");
+                divEl.setAttribute("class", "row row--gap-30 lg-gutter");
                 divEl.innerHTML = html`
                     ${list.productList.map((item) => {
                         return html`
                             <div class="col l-4 m-4 c-4">
-                                <article class="product__item">
+                                <article
+                                    class="product__item"
+                                    data-p-id="${item.productId}"
+                                    data-pv-id="${item.productVariant
+                                        .productVariantId}"
+                                >
                                     <div class="product__item-header">
                                         <a
                                             href="MainController?action=Detail&productId=${item.productId}"

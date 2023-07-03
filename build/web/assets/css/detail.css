@@ -87,6 +87,7 @@
 .detail__size-item,
 .detail__color-item {
     user-select: none;
+    cursor: not-allowed;
 }
 
 .detail__radio {
@@ -113,10 +114,12 @@
 .detail__label--hidden {
     opacity: 0.5;
     pointer-events: none;
+    cursor: not-allowed;
 }
 
 .detail__label--hidden .detail__radio {
     pointer-events: none;
+    cursor: not-allowed;
 }
 
 .detail__label--hidden:hover {

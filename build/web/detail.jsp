@@ -1,10 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--Import fmt-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en_US" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pursuit</title>
+
+        <!-- Check URL -->
+        <script src="./assets/js/shop.js"></script>
 
         <!-- Embed Favicon -->
         <link
@@ -84,6 +90,19 @@
         />
         <meta name="theme-color" content="#ffffff" />
 
+        <!-- Embed Font Awesome -->
+        <link
+            rel="preconnect"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
         <!-- Styles CSS -->
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
@@ -133,10 +152,15 @@
                                         value="${requestScope.PRODUCT.price}"
                                         class="detail__price-origin"
                                     />
+                                    <fmt:formatNumber
+                                        value="${requestScope.PRODUCT.price * (1 + 0.1)}"
+                                        pattern="#0.00"
+                                        var="formattedPrice"
+                                    />
                                     <p
                                         class="detail__price detail__price--main paragraph paragraph--primary"
                                     >
-                                        $${requestScope.PRODUCT.price}
+                                        $${formattedPrice}
                                     </p>
                                     <p
                                         class="detail__price detail__price--discount paragraph paragraph--primary"

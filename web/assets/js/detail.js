@@ -1,14 +1,15 @@
 import Validator from "./validator.js";
 import toast from "./toast.js";
 import sendRequest from "./request.js";
+import handleQuantity from "./quantity.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const detailForm = new Validator(".detail__form");
+const detailFormEl = $(".detail__form");
 const addCartSubmit = $(".detail__btn-add-cart");
-const detailBtnMinus = $(".detail__btn--minus");
 const detailBtnPlus = $(".detail__btn--plus");
+const detailBtnMinus = $(".detail__btn--minus");
 const detailQtyInput = $(".detail__qty-input");
 const detailImgItems = $$(".detail__image-item");
 const detailImgsLength = detailImgItems.length;
@@ -31,8 +32,6 @@ export default {
     quantity: 1,
     counter: 0,
     length: detailImgsLength,
-    maxQuantity: 0,
-    flagQty: 1,
     colorList: [],
     data: new Map(),
 
@@ -51,81 +50,20 @@ export default {
             const regex = /\d+/;
             const matches = detailQtyValue.innerHTML.match(regex);
             if (matches) {
-                this.maxQuantity = parseInt(matches[0], 10);
+                return parseInt(matches[0], 10);
             }
         }
     },
 
-    modify() {
-        detailQtyInput.value = this.quantity;
-    },
-
-    increase() {
-        if (this.quantity < this.maxQuantity) {
-            this.quantity++;
-            this.modify();
-        }
-    },
-
-    decrease() {
-        if (this.quantity > 1) {
-            this.quantity--;
-            this.modify();
-        }
-    },
-
     handleEvents() {
-        // Quantity
-        if (detailBtnPlus) {
-            detailBtnPlus.onclick = () => {
-                this.increase();
-            };
-        }
-
-        if (detailBtnMinus) {
-            detailBtnMinus.onclick = () => {
-                this.decrease();
-            };
-        }
-
         if (detailQtyInput) {
-            detailQtyInput.onkeydown = (e) => {
-                this.flagQty = this.quantity;
-
-                if (
-                    (isNaN(e.key) &&
-                        e.key !== "Backspace" &&
-                        e.key !== "ArrowLeft" &&
-                        e.key !== "ArrowRight" &&
-                        e.key !== "ArrowUp" &&
-                        e.key !== "ArrowDown") ||
-                    e.key === " "
-                ) {
-                    e.preventDefault();
-                } else if (e.key === "ArrowUp") {
-                    this.increase();
-                } else if (e.key === "ArrowDown") {
-                    this.decrease();
-                } else {
-                    detailQtyInput.onchange = (e) => {
-                        this.quantity = e.target.value;
-                    };
-
-                    detailQtyInput.oninput = (e) => {
-                        if (e.target.value > this.maxQuantity) {
-                            e.target.value = this.maxQuantity;
-                            this.quantity = e.target.value;
-                        }
-                    };
-
-                    detailQtyInput.onblur = (e) => {
-                        if (e.target.value === "") {
-                            this.quantity = this.flagQty;
-                            e.target.value = this.flagQty;
-                        }
-                    };
-                }
-            };
+            handleQuantity(
+                detailQtyInput,
+                this.quantity,
+                this.getQuantity.bind(this),
+                detailBtnPlus,
+                detailBtnMinus
+            );
         }
 
         // Product variant: color
@@ -183,9 +121,6 @@ export default {
             });
         }
 
-        // Submit form
-        detailForm.onSubmit = (formData) => {};
-
         // Handle add to cart
         if (addCartSubmit) {
             addCartSubmit.onclick = () => {
@@ -223,14 +158,19 @@ export default {
     },
 
     renderByVariant(
+        productVariantId,
         price = this.originPrice.value,
         quantity = this.originQuantity.value
     ) {
+        detailFormEl.setAttribute("data-pv-id", productVariantId);
         detailMainPrice.innerHTML = "$" + price;
         detailDiscountPrice.innerHTML = "$" + price;
         detailQtyValue.innerHTML = quantity + " product(s) are available";
 
-        this.getQuantity();
+        if (Number(detailQtyInput.value) > quantity) {
+            this.quantity = quantity;
+            detailQtyInput.value = this.quantity;
+        }
     },
 
     isRadioListSelected(radioList) {
@@ -254,7 +194,11 @@ export default {
                     (checkSubList.id === element.variantColor.colorName &&
                         checkList.id === element.variantSize.sizeName)
                 ) {
-                    this.renderByVariant(element.price, element.quantity);
+                    this.renderByVariant(
+                        element.productVariantId,
+                        element.price,
+                        element.quantity
+                    );
                 }
             });
         }
@@ -387,7 +331,6 @@ export default {
 
     start() {
         this.renderImages();
-        this.getQuantity();
         this.handleEvents();
     },
 };

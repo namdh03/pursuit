@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pursuit</title>
 
+        <!-- Check URL -->
+        <script src="./assets/js/shop.js"></script>
+
         <!-- Embed Favicon -->
         <link
             rel="apple-touch-icon"
@@ -84,6 +87,19 @@
         />
         <meta name="theme-color" content="#ffffff" />
 
+        <!-- Embed Font Awesome -->
+        <link
+            rel="preconnect"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
         <!-- Styles CSS -->
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
@@ -144,7 +160,7 @@
                                     <input
                                         id="password"
                                         name="password"
-                                        rules="required|blank|min:6"
+                                        rules="required|blank|min:8|max:16"
                                         type="password"
                                         placeholder="Password"
                                         class="form-control form__form-input paragraph paragraph--secondary"
