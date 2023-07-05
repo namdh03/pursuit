@@ -39,6 +39,7 @@
 }
 
 .form__form-input {
+    margin-top: 10px;
     min-width: 100%;
     padding: 13px 0;
     outline: transparent;

@@ -47,6 +47,18 @@ public class MainController extends HttpServlet {
     private static final String DELETE_CART_CONTROLLER = "DeleteCartController";
     private static final String UPDATE_CART = "UpdateCart";
     private static final String UPDATE_CART_CONTROLLER = "UpdateCartController";
+    private static final String UPDATE_USER = "UpdateUser";
+    private static final String UPDATE_USER_CONTROLLER = "UpdateUserController";
+    private static final String SET_ADDRESS = "SetAddress";
+    private static final String SET_ADDRESS_CONTROLLER = "SetAddressController";
+    private static final String UPDATE_DEFAULT_ADDRESS = "UpdateDefaultAddress";
+    private static final String UPDATE_DEFAULT_ADDRESS_CONTROLLER = "UpdateDefaultAddressController";
+    private static final String DELETE_ADDRESS = "DeleteAddress";
+    private static final String DELETE_ADDRESS_CONTROLLER = "DeleteAddressController";
+    private static final String LOGOUT = "Logout";
+    private static final String LOGOUT_CONTROLLER = "LogoutController";
+    private static final String CHANGE_PASSWORD = "ChangePassword";
+    private static final String CHANGE_PASSWORD_CONTROLLER = "ChangePasswordController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,6 +73,7 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = WELCOME_PAGE;
+        request.setCharacterEncoding("UTF-8");
 
         try {
             String action = request.getParameter("action");
@@ -104,6 +117,24 @@ public class MainController extends HttpServlet {
                     break;
                 case UPDATE_CART:
                     url = UPDATE_CART_CONTROLLER;
+                    break;
+                case UPDATE_USER:
+                    url = UPDATE_USER_CONTROLLER;
+                    break;
+                case SET_ADDRESS:
+                    url = SET_ADDRESS_CONTROLLER;
+                    break;
+                case UPDATE_DEFAULT_ADDRESS:
+                    url = UPDATE_DEFAULT_ADDRESS_CONTROLLER;
+                    break;
+                case DELETE_ADDRESS:
+                    url = DELETE_ADDRESS_CONTROLLER;
+                    break;
+                case LOGOUT:
+                    url = LOGOUT_CONTROLLER;
+                    break;
+                case CHANGE_PASSWORD:
+                    url = CHANGE_PASSWORD_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;

@@ -1,9 +1,11 @@
 import Header from "./header.js";
 import Detail from "./detail.js";
 import Cart from "./cart.js";
+import User from "./user.js";
 import { Product } from "../Components/index.js";
 
-Header.isSearch();
+Header.start();
 Detail.start();
 Cart.start();
+User.start();
 Product.start();

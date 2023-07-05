@@ -5,6 +5,7 @@ import handleQuantity from "./quantity.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+
 const productList = $(".product__list");
 const detailFormEl = $(".detail__form");
 const detailForm = new Validator(".detail__form");

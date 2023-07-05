@@ -60,17 +60,20 @@ public class RegisterController extends HttpServlet {
             }
 
             if (!duplicated) {
-                boolean checkInsert = adao.registerAccount(email, username, Encode.toSHA1(password));
+                String code = RandomString.number(6);
+                String rootPath = request.getScheme() + "://" + request.getServerName()
+                        + ":" + request.getServerPort() + request.getContextPath();
+                boolean isSendEmail = Email.sendEmail(email, "Welcome to Pursuit!", Email.templateEmail(rootPath, username, code));
 
-                if (checkInsert) {
-                    String code = RandomString.number(6);
-                    checkInsert = adao.verifyCode(username, Encode.toSHA1(code), "ADD");
+                if (isSendEmail) {
+                    boolean checkInsert = adao.registerAccount(email, username, Encode.toSHA1(password));
 
                     if (checkInsert) {
-                        data.put("success", "Registration successful! Please check your email and click the link to verify your account");
-                        String rootPath = request.getScheme() + "://" + request.getServerName()
-                                + ":" + request.getServerPort() + request.getContextPath();
-                        Email.sendEmail(email, "Welcome to Pursuit!", Email.templateEmail(rootPath, username, code));
+                        checkInsert = adao.verifyCode(username, Encode.toSHA1(code), "ADD");
+
+                        if (checkInsert) {
+                            data.put("success", "Registration successful! Please check your email and click the link to verify your account");
+                        }
                     }
                 }
             }

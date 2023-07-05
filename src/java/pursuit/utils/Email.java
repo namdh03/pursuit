@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -23,17 +24,21 @@ public class Email {
     // Email: namdhse172173@fpt.edu.vn
     // Password: trymqxmuikyxmhgw
 
-    private static final String EMAIL = "namdhse172173@fpt.edu.vn";
-    private static final String PASSWORD = "trymqxmuikyxmhgw";
+    private static final String EMAIL = "duonghoangnam503@gmail.com";
+    private static final String PASSWORD = "6248B40D5FCC727543AFCC22DD9BCCC2DEA9";
+    private static final String HOST = "smtp.elasticemail.com";
+    private static final int PORT = 2525;
 
     public static boolean sendEmail(String to, String title, String content) {
         String from = EMAIL;
         String password = PASSWORD;
         // Properties : khai báo các thuộc tính
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
-        props.put("mail.smtp.port", "587"); // TLS 587 SSL 465
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", HOST); // SMTP HOST
+        props.put("mail.smtp.port", String.valueOf(PORT)); // TLS 587 SSL 465
         props.put("mail.smtp.auth", "true");
+        props.setProperty("mail.smtp.user", from);
+        props.setProperty("mail.smtp.password", password);
         props.put("mail.smtp.starttls.enable", "true");
 
         // create Authenticator
@@ -56,10 +61,10 @@ public class Email {
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
 
             // Người gửi
-            msg.setFrom(from);
+            msg.setFrom(new InternetAddress(from));
 
             // Người nhận
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Tiêu đề email
             msg.setSubject(title);
@@ -76,7 +81,7 @@ public class Email {
             Transport.send(msg);
             System.out.println("Gửi email thành công");
             return true;
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             System.out.println("Gặp lỗi trong quá trình gửi email");
             e.printStackTrace();
             return false;

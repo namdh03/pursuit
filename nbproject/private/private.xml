@@ -5,12 +5,18 @@
             <url>src/java/pursuit/dao/AccountDAO.java</url>
             <bookmark id="1">
                 <name/>
-                <line>85</line>
+                <line>97</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/src/java/pursuit/utils/Email.java</file>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/web/login.jsp</file>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/web/index.jsp</file>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/web/shop.jsp</file>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/web/header.jsp</file>
+        </group>
     </open-files>
 </project-private>

@@ -65,7 +65,7 @@
                             class="header__icons"
                             data-customer-id="${sessionScope.USER.customer.customerId}"
                         >
-                            <div class="header__icon-wrapper">
+                            <a href="./user.jsp" class="header__icon-wrapper">
                                 <svg
                                     width="24"
                                     height="24"
@@ -91,7 +91,7 @@
                                         />
                                     </g>
                                 </svg>
-                            </div>
+                            </a>
 
                             <div class="header__icon-wrapper">
                                 <svg

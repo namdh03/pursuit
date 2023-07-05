@@ -16,4 +16,8 @@ export default {
             };
         }
     },
+
+    start() {
+        this.isSearch();
+    },
 };
