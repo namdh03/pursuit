@@ -412,7 +412,7 @@
                                 </p>
 
                                 <a
-                                    href="#!"
+                                    href="./checkout.jsp"
                                     class="cart__summary-checkout button-text btn btn--secondary btn-effect"
                                 >
                                     Proceed to Check Out

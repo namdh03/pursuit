@@ -68,7 +68,8 @@ public class CartItemDAO {
             + "    JOIN categories AS cat ON p.category_id = cat.category_id\n"
             + "WHERE\n"
             + "    cust.customer_id = ?\n"
-            + "    AND i.is_default = 1;";
+            + "    AND i.is_default = 1\n"
+            + "    AND c.status = 0;";
 
     private static final String REMOVE_CART_ITEM = "DELETE cart_items "
             + "WHERE cart_id = ? "

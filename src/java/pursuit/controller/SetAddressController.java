@@ -27,6 +27,7 @@ public class SetAddressController extends HttpServlet {
 
     private static final String SUCCESS = "user.jsp";
     private static final String ERROR = "user.jsp";
+    private static final String CHECKOUT = "checkout.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +45,7 @@ public class SetAddressController extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        String page = request.getParameter("page");
 
         try {
             HttpSession session = request.getSession();
@@ -68,7 +70,12 @@ public class SetAddressController extends HttpServlet {
             if (check) {
                 List<AddressDTO> addressList = addressDAO.getAddressList(accountDTO.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
-                url = SUCCESS;
+                
+                if (page.equals("checkout")) {
+                    url = CHECKOUT;
+                } else {
+                    url = SUCCESS;
+                }
             }
         } catch (Exception e) {
             log("Error at AddressController: " + e.toString());

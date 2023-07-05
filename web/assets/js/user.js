@@ -58,6 +58,14 @@ export default {
                         .querySelector(".user__image")
                         .classList.remove("user__image--hidden");
                 }
+
+                toast({
+                    title: "Info!",
+                    message:
+                        "We're sorry, but this feature is not supported on the website at the moment",
+                    type: "info",
+                    duration: 3000,
+                });
             };
         }
 

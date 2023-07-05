@@ -608,7 +608,9 @@
                                     </button>
                                 </div>
 
-                                <div class="user__addresses-content ${sessionScope.USER.username == null ? 'user__addresses-content--password' : ''}">
+                                <div
+                                    class="user__addresses-content ${sessionScope.USER.username == null ? 'user__addresses-content--password' : ''}"
+                                >
                                     <c:choose>
                                         <c:when
                                             test="${not empty sessionScope.ADDRESSES}"
@@ -781,6 +783,7 @@
                                                     type="text"
                                                     placeholder="Specific Address"
                                                     required
+                                                    maxlength="255"
                                                     class="form-control form__form-input paragraph paragraph--secondary"
                                                 />
                                                 <span

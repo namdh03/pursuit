@@ -59,6 +59,8 @@ public class MainController extends HttpServlet {
     private static final String LOGOUT_CONTROLLER = "LogoutController";
     private static final String CHANGE_PASSWORD = "ChangePassword";
     private static final String CHANGE_PASSWORD_CONTROLLER = "ChangePasswordController";
+    private static final String ADD_ORDER = "AddOrder";
+    private static final String ADD_ORDER_CONTROLLER = "AddOrderController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -135,6 +137,9 @@ public class MainController extends HttpServlet {
                     break;
                 case CHANGE_PASSWORD:
                     url = CHANGE_PASSWORD_CONTROLLER;
+                    break;
+                case ADD_ORDER:
+                    url = ADD_ORDER_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;
