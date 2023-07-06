@@ -128,216 +128,345 @@
                                     items="${sessionScope.CART}"
                                     varStatus="loop"
                                 >
-                                    <c:set
-                                        var="total"
-                                        value="${total + (o.quantity * o.productVariant.price)}"
-                                        scope="page"
-                                    />
-
-                                    <li class="cart__item">
-                                        <article class="cart__info">
-                                            <header class="cart__info-header">
-                                                <p
-                                                    class="cart__header-counter paragraph paragraph--tertiary"
-                                                >
-                                                    Item ${loop.count}
-                                                </p>
-
-                                                <div
-                                                    class="cart__header-actions"
-                                                >
-                                                    <a
-                                                        href="#!"
-                                                        class="cart__header-link paragraph paragraph--tertiary"
+                                    <c:choose>
+                                        <c:when
+                                            test="${o.productVariant.quantity >= o.quantity}"
+                                        >
+                                            <c:set
+                                                var="total"
+                                                value="${total + (o.quantity * o.productVariant.price)}"
+                                                scope="page"
+                                            />
+                                            <li class="cart__item">
+                                                <article class="cart__info">
+                                                    <header
+                                                        class="cart__info-header"
                                                     >
-                                                        Save for later
-                                                    </a>
+                                                        <p
+                                                            class="cart__header-counter paragraph paragraph--tertiary"
+                                                        >
+                                                            Item ${loop.count}
+                                                        </p>
+
+                                                        <div
+                                                            class="cart__header-actions"
+                                                        >
+                                                            <a
+                                                                href="#!"
+                                                                class="cart__header-link paragraph paragraph--tertiary"
+                                                            >
+                                                                Save for later
+                                                            </a>
+                                                            <c:url
+                                                                var="UpdateUrl"
+                                                                value="MainController"
+                                                            >
+                                                                <c:param
+                                                                    name="action"
+                                                                    value="UpdateCart"
+                                                                />
+                                                                <c:param
+                                                                    name="cartId"
+                                                                    value="${o.cart.cartId}"
+                                                                />
+                                                                <c:param
+                                                                    name="pvId"
+                                                                    value="${o.productVariant.productVariantId}"
+                                                                />
+                                                                <c:param
+                                                                    name="qty"
+                                                                    value="${o.quantity}"
+                                                                />
+                                                            </c:url>
+                                                            <a
+                                                                href="${UpdateUrl}"
+                                                                class="cart__header-link cart__header-link--update paragraph paragraph--tertiary"
+                                                            >
+                                                                Update
+                                                            </a>
+
+                                                            <c:url
+                                                                var="deleteUrl"
+                                                                value="MainController"
+                                                            >
+                                                                <c:param
+                                                                    name="action"
+                                                                    value="DeleteCart"
+                                                                />
+                                                                <c:param
+                                                                    name="cartId"
+                                                                    value="${o.cart.cartId}"
+                                                                />
+                                                                <c:param
+                                                                    name="pvId"
+                                                                    value="${o.productVariant.productVariantId}"
+                                                                />
+                                                            </c:url>
+                                                            <a
+                                                                href="${deleteUrl}"
+                                                                class="cart__header-link paragraph paragraph--tertiary"
+                                                            >
+                                                                Remove
+                                                            </a>
+                                                        </div>
+
+                                                        <div
+                                                            class="cart__header-qty-wrapper"
+                                                        >
+                                                            <p
+                                                                class="cart__header-qty-text button-text"
+                                                            >
+                                                                Qty:
+                                                            </p>
+
+                                                            <div
+                                                                class="cart__header-qty-group"
+                                                            >
+                                                                <button
+                                                                    class="cart__header-btn cart__header-btn--decrease"
+                                                                >
+                                                                    <svg
+                                                                        width="12"
+                                                                        height="2"
+                                                                        viewBox="0 0 12 2"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        class="cart__header-btn-icon"
+                                                                    >
+                                                                        <rect
+                                                                            y="0.5"
+                                                                            width="12"
+                                                                            height="1"
+                                                                            fill="currentColor"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+
+                                                                <input
+                                                                    id="quantity"
+                                                                    name="quantity"
+                                                                    type="text"
+                                                                    value="${o.quantity}"
+                                                                    autocomplete="off"
+                                                                    class="cart__header-qty-input"
+                                                                    data-pv-qty="${o.productVariant.quantity}"
+                                                                />
+
+                                                                <button
+                                                                    class="cart__header-btn cart__header-btn--increase"
+                                                                >
+                                                                    <svg
+                                                                        width="12"
+                                                                        height="12"
+                                                                        viewBox="0 0 12 12"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        class="cart__header-btn-icon"
+                                                                    >
+                                                                        <rect
+                                                                            y="5.5"
+                                                                            width="12"
+                                                                            height="1"
+                                                                            fill="currentColor"
+                                                                        />
+                                                                        <rect
+                                                                            x="5.5"
+                                                                            y="12"
+                                                                            width="12"
+                                                                            height="1"
+                                                                            transform="rotate(-90 5.5 12)"
+                                                                            fill="currentColor"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+
+                                                    <p
+                                                        class="cart__separate"
+                                                    ></p>
+
                                                     <c:url
-                                                        var="UpdateUrl"
+                                                        var="detailUrl"
                                                         value="MainController"
                                                     >
                                                         <c:param
                                                             name="action"
-                                                            value="UpdateCart"
+                                                            value="Detail"
                                                         />
                                                         <c:param
-                                                            name="cartId"
-                                                            value="${o.cart.cartId}"
-                                                        />
-                                                        <c:param
-                                                            name="pvId"
-                                                            value="${o.productVariant.productVariantId}"
-                                                        />
-                                                        <c:param
-                                                            name="qty"
-                                                            value="${o.quantity}"
+                                                            name="productId"
+                                                            value="${o.productVariant.product.productId}"
                                                         />
                                                     </c:url>
-                                                    <a
-                                                        href="${UpdateUrl}"
-                                                        class="cart__header-link cart__header-link--update paragraph paragraph--tertiary"
+                                                    <section
+                                                        class="cart__info-body"
                                                     >
-                                                        Update
-                                                    </a>
+                                                        <figure
+                                                            class="cart__body-img-wrapper"
+                                                        >
+                                                            <a
+                                                                href="${detailUrl}"
+                                                                class="cart__product-link"
+                                                            >
+                                                                <img
+                                                                    src="${o.productVariant.product.imageUrl}"
+                                                                    alt=""
+                                                                    class="cart__body-img"
+                                                                />
+                                                            </a>
+                                                        </figure>
+
+                                                        <div
+                                                            class="cart__info-content"
+                                                        >
+                                                            <h2
+                                                                class="cart__content-title button-text"
+                                                            >
+                                                                <a
+                                                                    href="${detailUrl}"
+                                                                    class="cart__product-link"
+                                                                >
+                                                                    ${o.productVariant.product.productName}
+                                                                </a>
+                                                            </h2>
+
+                                                            <p
+                                                                class="cart__content-id paragraph paragraph--secondary"
+                                                            >
+                                                                Variation:
+                                                                ${o.productVariant.variantColor.colorName},
+                                                                ${o.productVariant.variantSize.sizeName}
+                                                            </p>
+
+                                                            <p
+                                                                class="cart__content-price button-text"
+                                                            >
+                                                                $${o.productVariant.price}
+                                                            </p>
+                                                        </div>
+                                                    </section>
+                                                </article>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="cart__item">
+                                                <article class="cart__info">
+                                                    <header
+                                                        class="cart__info-header"
+                                                    >
+                                                        <p
+                                                            class="cart__header-counter paragraph paragraph--tertiary"
+                                                        >
+                                                            Item ${loop.count}
+                                                        </p>
+
+                                                        <div
+                                                            class="cart__header-actions cart__empty"
+                                                        >
+                                                            <c:url
+                                                                var="deleteUrl"
+                                                                value="MainController"
+                                                            >
+                                                                <c:param
+                                                                    name="action"
+                                                                    value="DeleteCart"
+                                                                />
+                                                                <c:param
+                                                                    name="cartId"
+                                                                    value="${o.cart.cartId}"
+                                                                />
+                                                                <c:param
+                                                                    name="pvId"
+                                                                    value="${o.productVariant.productVariantId}"
+                                                                />
+                                                            </c:url>
+                                                            <a
+                                                                href="${deleteUrl}"
+                                                                class="cart__header-link paragraph paragraph--tertiary"
+                                                            >
+                                                                Remove
+                                                            </a>
+                                                                
+                                                                
+
+                                                        <p
+                                                            class="cart__empty paragraph paragraph--tertiary"
+                                                        >
+                                                            Out Of Stock
+                                                        </p>
+                                                        </div>
+                                                    </header>
+
+                                                    <p
+                                                        class="cart__separate"
+                                                    ></p>
 
                                                     <c:url
-                                                        var="deleteUrl"
+                                                        var="detailUrl"
                                                         value="MainController"
                                                     >
                                                         <c:param
                                                             name="action"
-                                                            value="DeleteCart"
+                                                            value="Detail"
                                                         />
                                                         <c:param
-                                                            name="cartId"
-                                                            value="${o.cart.cartId}"
-                                                        />
-                                                        <c:param
-                                                            name="pvId"
-                                                            value="${o.productVariant.productVariantId}"
+                                                            name="productId"
+                                                            value="${o.productVariant.product.productId}"
                                                         />
                                                     </c:url>
-                                                    <a
-                                                        href="${deleteUrl}"
-                                                        class="cart__header-link paragraph paragraph--tertiary"
+                                                    <section
+                                                        class="cart__info-body"
                                                     >
-                                                        Remove
-                                                    </a>
-                                                </div>
-
-                                                <div
-                                                    class="cart__header-qty-wrapper"
-                                                >
-                                                    <p
-                                                        class="cart__header-qty-text button-text"
-                                                    >
-                                                        Qty:
-                                                    </p>
-
-                                                    <div
-                                                        class="cart__header-qty-group"
-                                                    >
-                                                        <button
-                                                            class="cart__header-btn cart__header-btn--decrease"
+                                                        <figure
+                                                            class="cart__body-img-wrapper"
                                                         >
-                                                            <svg
-                                                                width="12"
-                                                                height="2"
-                                                                viewBox="0 0 12 2"
-                                                                fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                class="cart__header-btn-icon"
+                                                            <a
+                                                                href="${detailUrl}"
+                                                                class="cart__product-link"
                                                             >
-                                                                <rect
-                                                                    y="0.5"
-                                                                    width="12"
-                                                                    height="1"
-                                                                    fill="currentColor"
+                                                                <img
+                                                                    src="${o.productVariant.product.imageUrl}"
+                                                                    alt=""
+                                                                    class="cart__body-img"
                                                                 />
-                                                            </svg>
-                                                        </button>
+                                                            </a>
+                                                        </figure>
 
-                                                        <input
-                                                            id="quantity"
-                                                            name="quantity"
-                                                            type="text"
-                                                            value="${o.quantity}"
-                                                            autocomplete="off"
-                                                            class="cart__header-qty-input"
-                                                            data-pv-qty="${o.productVariant.quantity}"
-                                                        />
-
-                                                        <button
-                                                            class="cart__header-btn cart__header-btn--increase"
+                                                        <div
+                                                            class="cart__info-content"
                                                         >
-                                                            <svg
-                                                                width="12"
-                                                                height="12"
-                                                                viewBox="0 0 12 12"
-                                                                fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                class="cart__header-btn-icon"
+                                                            <h2
+                                                                class="cart__content-title button-text"
                                                             >
-                                                                <rect
-                                                                    y="5.5"
-                                                                    width="12"
-                                                                    height="1"
-                                                                    fill="currentColor"
-                                                                />
-                                                                <rect
-                                                                    x="5.5"
-                                                                    y="12"
-                                                                    width="12"
-                                                                    height="1"
-                                                                    transform="rotate(-90 5.5 12)"
-                                                                    fill="currentColor"
-                                                                />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </header>
+                                                                <a
+                                                                    href="${detailUrl}"
+                                                                    class="cart__product-link"
+                                                                >
+                                                                    ${o.productVariant.product.productName}
+                                                                </a>
+                                                            </h2>
 
-                                            <p class="cart__separate"></p>
+                                                            <p
+                                                                class="cart__content-id paragraph paragraph--secondary"
+                                                            >
+                                                                Variation:
+                                                                ${o.productVariant.variantColor.colorName},
+                                                                ${o.productVariant.variantSize.sizeName}
+                                                            </p>
 
-                                            <c:url
-                                                var="detailUrl"
-                                                value="MainController"
-                                            >
-                                                <c:param
-                                                    name="action"
-                                                    value="Detail"
-                                                />
-                                                <c:param
-                                                    name="productId"
-                                                    value="${o.productVariant.product.productId}"
-                                                />
-                                            </c:url>
-                                            <section class="cart__info-body">
-                                                <figure
-                                                    class="cart__body-img-wrapper"
-                                                >
-                                                    <a
-                                                        href="${detailUrl}"
-                                                        class="cart__product-link"
-                                                    >
-                                                        <img
-                                                            src="${o.productVariant.product.imageUrl}"
-                                                            alt=""
-                                                            class="cart__body-img"
-                                                        />
-                                                    </a>
-                                                </figure>
-
-                                                <div class="cart__info-content">
-                                                    <h2
-                                                        class="cart__content-title button-text"
-                                                    >
-                                                        <a
-                                                            href="${detailUrl}"
-                                                            class="cart__product-link"
-                                                        >
-                                                            ${o.productVariant.product.productName}
-                                                        </a>
-                                                    </h2>
-
-                                                    <p
-                                                        class="cart__content-id paragraph paragraph--secondary"
-                                                    >
-                                                        Variation:
-                                                        ${o.productVariant.variantColor.colorName},
-                                                        ${o.productVariant.variantSize.sizeName}
-                                                    </p>
-
-                                                    <p
-                                                        class="cart__content-price button-text"
-                                                    >
-                                                        $${o.productVariant.price}
-                                                    </p>
-                                                </div>
-                                            </section>
-                                        </article>
-                                    </li>
+                                                            <p
+                                                                class="cart__content-price button-text"
+                                                            >
+                                                                $${o.productVariant.price}
+                                                            </p>
+                                                        </div>
+                                                    </section>
+                                                </article>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </ul>
                         </div>

@@ -152,6 +152,13 @@ export default {
 
                 if (!customerId) {
                     window.location.href = "./login.jsp";
+                } else if (formData.quantity <= 0) {
+                    toast({
+                        title: "Error!",
+                        message: "Please enter a quantity greater than 0",
+                        type: "error",
+                        duration: 3000,
+                    });
                 } else {
                     this.addToCart(
                         url,

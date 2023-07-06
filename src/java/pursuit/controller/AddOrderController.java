@@ -26,6 +26,7 @@ import pursuit.dao.ProductVariantDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.AddressDTO;
 import pursuit.dto.CartItemDTO;
+import pursuit.dto.OrderDetailDTO;
 
 /**
  *
@@ -76,6 +77,10 @@ public class AddOrderController extends HttpServlet {
                 CartItemDAO cidao = new CartItemDAO();
                 cartList = cidao.getListCartItemByCID(adto.getCustomer().getCustomerId());
                 session.setAttribute("CART", cartList);
+                
+                Map<Integer, List<OrderDetailDTO>> map = orderDAO.getOrderList(adto.getCustomer().getCustomerId());
+                session.setAttribute("ORDER", map);
+                
                 data.put("SUCCESS", "SUCCESS");
             } else {
                 data.put("ERROR", "ERROR");

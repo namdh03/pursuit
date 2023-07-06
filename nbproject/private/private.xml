@@ -12,10 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/src/java/pursuit/controller/MainController.java</file>
-            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/src/java/pursuit/dao/AccountDAO.java</file>
             <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/web/user.jsp</file>
-            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/src/java/pursuit/controller/ChangePasswordController.java</file>
+            <file>file:/C:/Users/namdh/Documents/FPT%20University/Semester_04/PRJ301/HoaDNT/pursuit/src/java/pursuit/dao/OrderDAO.java</file>
         </group>
     </open-files>
 </project-private>

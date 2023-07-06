@@ -20,10 +20,12 @@ import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.dao.AddressDAO;
 import pursuit.dao.CartItemDAO;
+import pursuit.dao.OrderDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.AddressDTO;
 import pursuit.dto.CartItemDTO;
 import pursuit.dto.GoogleDTO;
+import pursuit.dto.OrderDetailDTO;
 import pursuit.utils.Google;
 
 /**
@@ -73,6 +75,9 @@ public class GoogleController extends HttpServlet {
                 List<AddressDTO> addressList = addressDAO.getAddressList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
                 
+                OrderDAO orderDAO = new OrderDAO();
+                Map<Integer, List<OrderDetailDTO>> map = orderDAO.getOrderList(adto.getCustomer().getCustomerId());
+                session.setAttribute("ORDER", map);
                 url = SUCCESS;
             } else {
                 session.setAttribute("ERROR", "Failed to log in with Google. Please try again or use another login method");

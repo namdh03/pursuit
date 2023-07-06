@@ -153,3 +153,7 @@
     color: #000000;
     cursor: pointer;
 }
+
+.cart__empty {
+    margin-left: auto;
+}

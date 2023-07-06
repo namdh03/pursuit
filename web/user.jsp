@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--Import UTF-8-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--Import fmt-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en_US" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -896,6 +899,94 @@
                                     </div>
                                 </section>
                             </c:if>
+
+                            <section class="user__content">
+                                <div class="user__content-row">
+                                    <p
+                                        class="user__heading heading heading--quaternary"
+                                    >
+                                        All
+                                    </p>
+                                </div>
+
+                                <div class="user__change-password-content">
+                                    <table class="content-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Address ID</th>
+                                                <th>Order Date</th>
+                                                <th>Amount</th>
+                                                <th>Payment</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach
+                                                var="o"
+                                                items="${sessionScope.ORDER.keySet()}"
+                                            >
+                                                <c:set
+                                                    var="total"
+                                                    value="0"
+                                                    scope="page"
+                                                />
+                                                <tr>
+                                                    <td>${o}</td>
+                                                    <c:forEach
+                                                        var="item"
+                                                        items="${sessionScope.ORDER.get(o)}"
+                                                        varStatus="loop"
+                                                    >
+                                                        <c:set
+                                                            var="addressId"
+                                                            value="${item.order.address.addressId}"
+                                                            scope="page"
+                                                        />
+                                                        <c:set
+                                                            var="orderDate"
+                                                            value="${item.order.orderDate}"
+                                                            scope="page"
+                                                        />
+                                                        <c:set
+                                                            var="amount"
+                                                            value="${loop.count}"
+                                                            scope="page"
+                                                        />
+                                                        <c:set
+                                                            var="paymentMethod"
+                                                            value="${item.order.paymentMethod}"
+                                                            scope="page"
+                                                        />
+                                                        <c:set
+                                                            var="total"
+                                                            value="${total + (item.quantity * item.price)}"
+                                                            scope="page"
+                                                        />
+                                                        <c:set
+                                                            var="status"
+                                                            value="${item.order.status}"
+                                                            scope="page"
+                                                        />
+                                                    </c:forEach>
+                                                    <td>${addressId}</td>
+                                                    <td>${orderDate}</td>
+                                                    <td>${amount}</td>
+                                                    <td>${paymentMethod}</td>
+                                                    <fmt:formatNumber
+                                                        value="${total}"
+                                                        pattern="#0.00"
+                                                        var="formattedTotal"
+                                                    />
+                                                    <td>${formattedTotal}</td>
+                                                    <td>${status}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>

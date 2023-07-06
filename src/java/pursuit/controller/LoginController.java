@@ -20,9 +20,11 @@ import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.dao.AddressDAO;
 import pursuit.dao.CartItemDAO;
+import pursuit.dao.OrderDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.AddressDTO;
 import pursuit.dto.CartItemDTO;
+import pursuit.dto.OrderDetailDTO;
 import pursuit.utils.Encode;
 
 /**
@@ -69,6 +71,10 @@ public class LoginController extends HttpServlet {
                 AddressDAO addressDAO = new AddressDAO();
                 List<AddressDTO> addressList = addressDAO.getAddressList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
+                
+                OrderDAO orderDAO = new OrderDAO();
+                Map<Integer, List<OrderDetailDTO>> map = orderDAO.getOrderList(adto.getCustomer().getCustomerId());
+                session.setAttribute("ORDER", map);
             }
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());

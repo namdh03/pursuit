@@ -141,11 +141,15 @@
                                 items="${sessionScope.CART}"
                                 varStatus="loop"
                             >
-                                <c:set
-                                    var="total"
-                                    value="${total + (o.quantity * o.productVariant.price)}"
-                                    scope="page"
-                                />
+                                <c:if
+                                    test="${o.productVariant.quantity >= o.quantity}"
+                                >
+                                    <c:set
+                                        var="total"
+                                        value="${total + (o.quantity * o.productVariant.price)}"
+                                        scope="page"
+                                    />
+                                </c:if>
                             </c:forEach>
 
                             <div class="checkout__address">
