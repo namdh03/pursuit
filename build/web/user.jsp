@@ -905,86 +905,123 @@
                                     <p
                                         class="user__heading heading heading--quaternary"
                                     >
-                                        All
+                                        My Purchases
                                     </p>
+
+                                    <a
+                                        href="./shop.jsp"
+                                        class="user__content-go-shopping paragraph paragraph--secondary btn btn--primary btn-effect"
+                                    >
+                                        Go to shopping
+                                    </a>
                                 </div>
 
-                                <div class="user__change-password-content">
-                                    <table class="content-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Order ID</th>
-                                                <th>Address ID</th>
-                                                <th>Order Date</th>
-                                                <th>Amount</th>
-                                                <th>Payment</th>
-                                                <th>Total</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach
-                                                var="o"
-                                                items="${sessionScope.ORDER.keySet()}"
-                                            >
-                                                <c:set
-                                                    var="total"
-                                                    value="0"
-                                                    scope="page"
-                                                />
-                                                <tr>
-                                                    <td>${o}</td>
+                                <div
+                                    class="user__change-password-content ${empty sessionScope.ORDER.values() ? 'user__addresses-content--password' : ''}"
+                                >
+                                    <c:choose>
+                                        <c:when
+                                            test="${not empty sessionScope.ORDER.values()}"
+                                        >
+                                            <table class="content-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order ID</th>
+                                                        <th>Address ID</th>
+                                                        <th>Order Date</th>
+                                                        <th>Amount</th>
+                                                        <th>Payment</th>
+                                                        <th>Total</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     <c:forEach
-                                                        var="item"
-                                                        items="${sessionScope.ORDER.get(o)}"
-                                                        varStatus="loop"
+                                                        var="o"
+                                                        items="${sessionScope.ORDER.keySet()}"
                                                     >
                                                         <c:set
-                                                            var="addressId"
-                                                            value="${item.order.address.addressId}"
-                                                            scope="page"
-                                                        />
-                                                        <c:set
-                                                            var="orderDate"
-                                                            value="${item.order.orderDate}"
-                                                            scope="page"
-                                                        />
-                                                        <c:set
-                                                            var="amount"
-                                                            value="${loop.count}"
-                                                            scope="page"
-                                                        />
-                                                        <c:set
-                                                            var="paymentMethod"
-                                                            value="${item.order.paymentMethod}"
-                                                            scope="page"
-                                                        />
-                                                        <c:set
                                                             var="total"
-                                                            value="${total + (item.quantity * item.price)}"
+                                                            value="0"
                                                             scope="page"
                                                         />
-                                                        <c:set
-                                                            var="status"
-                                                            value="${item.order.status}"
-                                                            scope="page"
-                                                        />
+                                                        <tr>
+                                                            <td>${o}</td>
+                                                            <c:forEach
+                                                                var="item"
+                                                                items="${sessionScope.ORDER.get(o)}"
+                                                                varStatus="loop"
+                                                            >
+                                                                <c:set
+                                                                    var="addressId"
+                                                                    value="${item.order.address.addressId}"
+                                                                    scope="page"
+                                                                />
+                                                                <c:set
+                                                                    var="orderDate"
+                                                                    value="${item.order.orderDate}"
+                                                                    scope="page"
+                                                                />
+                                                                <c:set
+                                                                    var="amount"
+                                                                    value="${loop.count}"
+                                                                    scope="page"
+                                                                />
+                                                                <c:set
+                                                                    var="paymentMethod"
+                                                                    value="${item.order.paymentMethod}"
+                                                                    scope="page"
+                                                                />
+                                                                <c:set
+                                                                    var="total"
+                                                                    value="${total + (item.quantity * item.price)}"
+                                                                    scope="page"
+                                                                />
+                                                                <c:set
+                                                                    var="status"
+                                                                    value="${item.order.status}"
+                                                                    scope="page"
+                                                                />
+                                                            </c:forEach>
+                                                            <td>
+                                                                ${addressId}
+                                                            </td>
+                                                            <td>
+                                                                ${orderDate}
+                                                            </td>
+                                                            <td>${amount}</td>
+                                                            <td>
+                                                                ${paymentMethod}
+                                                            </td>
+                                                            <fmt:formatNumber
+                                                                value="${total}"
+                                                                pattern="#0.00"
+                                                                var="formattedTotal"
+                                                            />
+                                                            <td>
+                                                                ${formattedTotal}
+                                                            </td>
+                                                            <td>${status}</td>
+                                                        </tr>
                                                     </c:forEach>
-                                                    <td>${addressId}</td>
-                                                    <td>${orderDate}</td>
-                                                    <td>${amount}</td>
-                                                    <td>${paymentMethod}</td>
-                                                    <fmt:formatNumber
-                                                        value="${total}"
-                                                        pattern="#0.00"
-                                                        var="formattedTotal"
-                                                    />
-                                                    <td>${formattedTotal}</td>
-                                                    <td>${status}</td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="user__address-empty">
+                                                <img
+                                                    src="./assets/icons/face-sad.svg"
+                                                    alt=""
+                                                    class="user__address-empty-icon"
+                                                />
+                                                <p
+                                                    class="user__address-empty-text paragraph paragraph--primary"
+                                                >
+                                                    You don't have any purchases
+                                                </p>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </section>
                         </div>
@@ -1022,6 +1059,35 @@
                     type: "error",
                     duration: 3000,
                 });
+                showErrorToast = false;
+            }
+
+            <c:if test="${requestScope.UPDATE_SUCCESS != null}">
+                showErrorToast = true;
+            </c:if>;
+
+            if (showErrorToast) {
+                toast({
+                    title: "Success!",
+                    message: "${requestScope.UPDATE_SUCCESS}",
+                    type: "success",
+                    duration: 3000,
+                });
+                showErrorToast = false;
+            }
+
+            <c:if test="${sessionScope.SET_ADDRESS_SUCCESS != null}">
+                showErrorToast = true;
+            </c:if>;
+
+            if (showErrorToast) {
+                toast({
+                    title: "Success!",
+                    message: "${sessionScope.SET_ADDRESS_SUCCESS}",
+                    type: "success",
+                    duration: 3000,
+                });
+                <c:remove var="SET_ADDRESS_SUCCESS" scope="session" />;
                 showErrorToast = false;
             }
         </script>

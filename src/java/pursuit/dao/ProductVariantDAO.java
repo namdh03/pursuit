@@ -10,9 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import pursuit.dto.CategoryDTO;
 import pursuit.dto.ColorDTO;
+import pursuit.dto.ImageDTO;
 import pursuit.dto.ProductDTO;
 import pursuit.dto.ProductVariantDTO;
 import pursuit.dto.SizeDTO;
@@ -57,6 +60,32 @@ public class ProductVariantDAO {
     private static final String GET_QTY_BY_PVID = "SELECT pv.quantity\n"
             + "FROM product_variants pv\n"
             + "WHERE pv.product_variant_id = ?";
+
+    private static final String GET_PV_LIST_BY_PID = "SELECT\n"
+            + "     pv.product_variant_id,\n"
+            + "     pv.size_id,\n"
+            + "     s.size_name,\n"
+            + "     pv.color_id,\n"
+            + "     c.color_name,\n"
+            + "     pv.price,\n"
+            + "     pv.quantity,\n"
+            + "     pv.is_default AS pv_default,\n"
+            + "     i.image_id,\n"
+            + "     i.image_url,\n"
+            + "     i.is_default AS image_default\n"
+            + "FROM\n"
+            + "     product_variants pv\n"
+            + "     INNER JOIN images i ON pv.product_variant_id = i.product_variant_id\n"
+            + "     INNER JOIN sizes s ON pv.size_id = s.size_id\n"
+            + "     INNER JOIN colors c ON pv.color_id = c.color_id\n"
+            + "WHERE\n"
+            + "     pv.product_id = ?";
+
+    private static final String UPDATE_PV_BY_ID = "UPDATE product_variants\n"
+            + "SET size_id = ?, color_id = ?, price = ?, quantity = ?, is_default = ?\n"
+            + "WHERE product_variant_id = ?";
+    private static final String ADD_PVARIANT = "INSERT INTO product_variants (product_id, size_id, color_id, price, quantity, is_default) \n"
+            + "VALUES (?, ?, ?, ?, ?, ?)";
 
     public ProductVariantDTO getPVByProductID(String code) throws SQLException {
         Connection c = null;
@@ -215,12 +244,12 @@ public class ProductVariantDAO {
 
         try {
             c = DBUtils.getConnection();
-            
+
             if (c != null) {
                 ps = c.prepareCall(GET_QTY_BY_PVID);
                 ps.setInt(1, pvId);
                 rs = ps.executeQuery();
-                
+
                 if (rs.next()) {
                     qty = rs.getInt("quantity");
                 }
@@ -237,7 +266,132 @@ public class ProductVariantDAO {
                 c.close();
             }
         }
-        
+
         return qty;
+    }
+
+    public Map<Integer, List<ImageDTO>> getPVListByPID(int productId) throws SQLException {
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Map<Integer, List<ImageDTO>> map = new HashMap<>();
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                ps = c.prepareCall(GET_PV_LIST_BY_PID);
+                ps.setInt(1, productId);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int productVariantId = rs.getInt("product_variant_id");
+                    int sizeId = rs.getInt("size_id");
+                    String sizeName = rs.getString("size_name");
+                    int colorId = rs.getInt("color_id");
+                    String colorName = rs.getString("color_name");
+                    float price = rs.getFloat("price");
+                    int quantity = rs.getInt("quantity");
+                    boolean pvDefault = rs.getBoolean("pv_default");
+                    int imageId = rs.getInt("image_id");
+                    String imageUrl = rs.getString("image_url");
+                    boolean imageDefault = rs.getBoolean("image_default");
+
+                    ProductDTO productDTO = new ProductDTO();
+                    productDTO.setProductId(productId);
+                    SizeDTO sizeDTO = new SizeDTO(sizeId, sizeName);
+                    ColorDTO colorDTO = new ColorDTO(colorId, colorName);
+                    ProductVariantDTO productVariantDTO = new ProductVariantDTO(productVariantId, productDTO, sizeDTO, colorDTO, price, quantity, pvDefault);
+                    ImageDTO imageDTO = new ImageDTO(imageId, productVariantDTO, imageUrl, imageDefault);
+
+                    List<ImageDTO> list = new ArrayList<>();
+
+                    if (map.containsKey(productVariantDTO.getProductVariantId())) {
+                        map.get(productVariantDTO.getProductVariantId()).add(imageDTO);
+                    } else {
+                        list.add(imageDTO);
+                        map.put(productVariantDTO.getProductVariantId(), list);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return map;
+    }
+
+    public boolean updatePVByID(int pvId, int sizeId, int colorId, float price, int quantity, boolean isDefault) throws SQLException {
+        Connection c = null;
+        PreparedStatement ps = null;
+        boolean check = false;
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                ps = c.prepareCall(UPDATE_PV_BY_ID);
+                ps.setInt(1, sizeId);
+                ps.setInt(2, colorId);
+                ps.setFloat(3, price);
+                ps.setInt(4, quantity);
+                ps.setBoolean(5, isDefault);
+                ps.setInt(6, pvId);
+
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return check;
+    }
+
+    public boolean addProductVariant(int productId, int sizeId, int colorId, float price, int quantity, boolean isDefault) throws SQLException {
+        Connection c = null;
+        PreparedStatement ps = null;
+        boolean check = false;
+
+        try {
+            c = DBUtils.getConnection();
+
+            if (c != null) {
+                ps = c.prepareCall(ADD_PVARIANT);
+                ps.setInt(1, productId);
+                ps.setInt(2, sizeId);
+                ps.setInt(3, colorId);
+                ps.setFloat(4, price);
+                ps.setInt(5, quantity);
+                ps.setBoolean(6, isDefault);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        return check;
     }
 }

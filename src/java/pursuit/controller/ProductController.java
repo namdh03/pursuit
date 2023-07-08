@@ -24,6 +24,7 @@ import pursuit.dto.ProductDTO;
 public class ProductController extends HttpServlet {
 
     private static final String SUCCESS = "shop.jsp";
+    private static final String ADMIN_PAGE = "admin.jsp";
     private static final String ERROR = "shop.jsp";
 
     /**
@@ -43,25 +44,34 @@ public class ProductController extends HttpServlet {
         String size = request.getParameter("size");
         String search = request.getParameter("search");
         String categoryID = request.getParameter("categoryID");
+        String location = request.getParameter("location");
+        boolean status = Boolean.parseBoolean(request.getParameter("flag"));
 
         try {
-            if (page == null) {
+            if (page == null || page.equals("")) {
                 page = "1";
             }
 
-            if (size == null) {
+            if (size == null || size.equals("")) {
                 size = "9";
             }
 
             ProductDAO pdao = new ProductDAO();
-            List<ProductDTO> list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID);
+            List<ProductDTO> list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID, status);
             int totalProducts = pdao.TOTAL_PRODUCT;
             request.setAttribute("CATEGORY_ID", categoryID);
-            
+
             if (totalProducts > 0) {
                 request.setAttribute("PRODUCT_LIST", list);
                 request.setAttribute("TOTAL_PRODUCTS", totalProducts);
+
                 url = SUCCESS;
+            }
+
+            if (location.equals("admin")) {
+                url = ADMIN_PAGE;
+                request.setAttribute("page", page);
+                request.setAttribute("size", size);
             }
         } catch (Exception e) {
             log("Error at ProductController: " + e.toString());

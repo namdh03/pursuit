@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pursuit.dao.CartDAO;
 import pursuit.dao.CartItemDAO;
+import pursuit.dao.ProductVariantDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.CartDTO;
 import pursuit.dto.CartItemDTO;
@@ -52,18 +53,26 @@ public class AddToCartController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             AccountDTO adto = (AccountDTO) session.getAttribute("USER");
-            
+
             if (customerId != null && Integer.parseInt(customerId) == adto.getCustomer().getCustomerId()) {
-                CartDAO cartDAO = new CartDAO();
-                boolean check = cartDAO.addToCart(Integer.parseInt(customerId),
-                        Integer.parseInt(productVariantId),
-                        Integer.parseInt(quantity));
+
+                ProductVariantDAO pvdao = new ProductVariantDAO();
+                int pvQty = pvdao.getQtyByPVID(Integer.parseInt(productVariantId));
+                boolean check;
+                if (pvQty < Integer.parseInt(quantity)) {
+                    check = false;
+                } else {
+                    CartDAO cartDAO = new CartDAO();
+                    check = cartDAO.addToCart(Integer.parseInt(customerId),
+                            Integer.parseInt(productVariantId),
+                            Integer.parseInt(quantity));
+                }
 
                 if (check) {
                     CartItemDAO cidao = new CartItemDAO();
                     List<CartItemDTO> list = cidao.getListCartItemByCID(Integer.parseInt(customerId));
-                    session.setAttribute("CART", list); 
-                    
+                    session.setAttribute("CART", list);
+
                     data.put("CART", list);
                     data.put("CART_SUCCESS", "Item(s) successfully added to your cart");
                 } else {

@@ -24,8 +24,8 @@ public class Email {
     // Email: namdhse172173@fpt.edu.vn
     // Password: trymqxmuikyxmhgw
 
-    private static final String EMAIL = "duonghoangnam503@gmail.com";
-    private static final String PASSWORD = "6248B40D5FCC727543AFCC22DD9BCCC2DEA9";
+    private static final String EMAIL = "namdhse172173@fpt.edu.vn";
+    private static final String PASSWORD = "CC9FC4CD257B434AD5C2567EB48AE27E4EF4";
     private static final String HOST = "smtp.elasticemail.com";
     private static final int PORT = 2525;
 

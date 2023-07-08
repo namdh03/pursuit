@@ -105,6 +105,7 @@ public class UpdateUserController extends HttpServlet {
                         adto = adao.getUserInformation(adto.getUsername(), "USERNAME");
                         session.setAttribute("USER", adto);
                     }
+                    request.setAttribute("UPDATE_SUCCESS", "Update successful");
                 }
             } 
             

@@ -20,11 +20,15 @@ import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.dao.AddressDAO;
 import pursuit.dao.CartItemDAO;
+import pursuit.dao.ColorDAO;
 import pursuit.dao.OrderDAO;
+import pursuit.dao.SizeDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.AddressDTO;
 import pursuit.dto.CartItemDTO;
+import pursuit.dto.ColorDTO;
 import pursuit.dto.OrderDetailDTO;
+import pursuit.dto.SizeDTO;
 import pursuit.utils.Encode;
 
 /**
@@ -33,6 +37,8 @@ import pursuit.utils.Encode;
  */
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
+
+    private static final String AD = "AD";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,14 +73,25 @@ public class LoginController extends HttpServlet {
                 CartItemDAO cidao = new CartItemDAO();
                 List<CartItemDTO> cartList = cidao.getListCartItemByCID(adto.getCustomer().getCustomerId());
                 session.setAttribute("CART", cartList);
-                
+
                 AddressDAO addressDAO = new AddressDAO();
                 List<AddressDTO> addressList = addressDAO.getAddressList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
-                
+
                 OrderDAO orderDAO = new OrderDAO();
                 Map<Integer, List<OrderDetailDTO>> map = orderDAO.getOrderList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ORDER", map);
+
+                if (AD.equals(adto.getRole().getRoleId().trim())) {
+                    SizeDAO sizeDAO = new SizeDAO();
+                    List<SizeDTO> sizeList = sizeDAO.getListSize();
+                    session.setAttribute("SIZE", sizeList);
+
+                    ColorDAO colorDAO = new ColorDAO();
+                    List<ColorDTO> colorList = colorDAO.getListColor();
+                    session.setAttribute("COLOR", colorList);
+
+                }
             }
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());

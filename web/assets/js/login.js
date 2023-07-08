@@ -36,7 +36,11 @@ loginForm.onSubmit = (formData) => {
                     duration: 3000,
                 });
             } else {
-                window.location.href = "./index.jsp";
+                if (response.user.role.roleId.trim() === "AD") {
+                    window.location.href = "./admin.jsp";
+                } else {
+                    window.location.href = "./index.jsp";
+                }
             }
         })
         .catch((error) => {

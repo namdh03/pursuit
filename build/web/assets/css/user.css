@@ -231,6 +231,7 @@
     justify-content: space-between;
 }
 
+.user__content-go-shopping,
 .user__content-addresses {
     display: flex;
     align-items: center;
@@ -395,6 +396,7 @@
 .content-table td {
     padding: 12px 15px;
     text-align: center;
+    vertical-align: middle;
 }
 
 .content-table tbody tr {

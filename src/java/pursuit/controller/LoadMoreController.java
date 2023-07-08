@@ -41,6 +41,7 @@ public class LoadMoreController extends HttpServlet {
         String size = request.getParameter("size");
         String search = request.getParameter("search");
         String categoryID = request.getParameter("categoryID");
+        boolean status = Boolean.parseBoolean(request.getParameter("flag"));
         Gson gson = new Gson();
         JsonObject json = new JsonObject();
         List<ProductDTO> list = null;
@@ -55,11 +56,12 @@ public class LoadMoreController extends HttpServlet {
             }
 
             ProductDAO pdao = new ProductDAO();
-            list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID);
+            list = pdao.getProductList(Integer.parseInt(page), Integer.parseInt(size), search, categoryID, status);
             int totalProducts = pdao.TOTAL_PRODUCT;
             json.add("productList", gson.toJsonTree(list));
             json.addProperty("totalProducts", totalProducts);
         } catch (Exception e) {
+            log("Error at LoadMoreController: " + e.toString());
         } finally {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

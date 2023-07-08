@@ -70,6 +70,7 @@ public class SetAddressController extends HttpServlet {
             if (check) {
                 List<AddressDTO> addressList = addressDAO.getAddressList(accountDTO.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
+                session.setAttribute("SET_ADDRESS_SUCCESS", "Address added successfully");
                 
                 if (page.equals("checkout")) {
                     url = CHECKOUT;

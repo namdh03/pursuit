@@ -671,5 +671,24 @@
         </main>
 
         <script type="module" src="./assets/js/main.js"></script>
+        <script type="module">
+            import toast from "./assets/js/toast.js";
+            let showErrorToast = false;
+
+            <c:if test="${sessionScope.SET_ADDRESS_SUCCESS != null}">
+                showErrorToast = true;
+            </c:if>;
+
+            if (showErrorToast) {
+                toast({
+                    title: "Success!",
+                    message: "${sessionScope.SET_ADDRESS_SUCCESS}",
+                    type: "success",
+                    duration: 3000,
+                });
+                <c:remove var="SET_ADDRESS_SUCCESS" scope="session" />;
+                showErrorToast = false;
+            }
+        </script>
     </body>
 </html>

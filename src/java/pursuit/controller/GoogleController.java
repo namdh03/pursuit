@@ -20,12 +20,16 @@ import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.dao.AddressDAO;
 import pursuit.dao.CartItemDAO;
+import pursuit.dao.ColorDAO;
 import pursuit.dao.OrderDAO;
+import pursuit.dao.SizeDAO;
 import pursuit.dto.AccountDTO;
 import pursuit.dto.AddressDTO;
 import pursuit.dto.CartItemDTO;
+import pursuit.dto.ColorDTO;
 import pursuit.dto.GoogleDTO;
 import pursuit.dto.OrderDetailDTO;
+import pursuit.dto.SizeDTO;
 import pursuit.utils.Google;
 
 /**
@@ -35,8 +39,11 @@ import pursuit.utils.Google;
 @WebServlet(name = "GoogleController", urlPatterns = {"/GoogleController"})
 public class GoogleController extends HttpServlet {
 
-    private static final String SUCCESS = "index.jsp";
-    private static final String ERROR = "login.jsp";
+    private static final String LOGIN_PAGE = "login.jsp";
+    private static final String ADMIN_PAGE = "admin.jsp";
+    private static final String USER_PAGE = "index.jsp";
+    private static final String US = "US";
+    private static final String AD = "AD";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,7 +57,7 @@ public class GoogleController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = LOGIN_PAGE;
         String refresh_token = request.getParameter("code");
         String authentication_token = Google.getToken(refresh_token);
         GoogleDTO gdto = Google.getUser(authentication_token);
@@ -66,19 +73,32 @@ public class GoogleController extends HttpServlet {
             if (check) {
                 AccountDTO adto = adao.getUserInformation(gdto.getId(), "GOOGLE_ID");
                 session.setAttribute("USER", adto);
-                
+
                 CartItemDAO cidao = new CartItemDAO();
                 List<CartItemDTO> cartList = cidao.getListCartItemByCID(adto.getCustomer().getCustomerId());
                 session.setAttribute("CART", cartList);
-                
+
                 AddressDAO addressDAO = new AddressDAO();
                 List<AddressDTO> addressList = addressDAO.getAddressList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ADDRESSES", addressList);
-                
+
                 OrderDAO orderDAO = new OrderDAO();
                 Map<Integer, List<OrderDetailDTO>> map = orderDAO.getOrderList(adto.getCustomer().getCustomerId());
                 session.setAttribute("ORDER", map);
-                url = SUCCESS;
+
+                if (AD.equals(adto.getRole().getRoleId().trim())) {
+                    SizeDAO sizeDAO = new SizeDAO();
+                    List<SizeDTO> sizeList = sizeDAO.getListSize();
+                    session.setAttribute("SIZE", sizeList);
+                    
+                    ColorDAO colorDAO = new ColorDAO();
+                    List<ColorDTO> colorList = colorDAO.getListColor();
+                    session.setAttribute("COLOR", colorList);
+                    
+                    url = ADMIN_PAGE;
+                } else {
+                    url = USER_PAGE;
+                }
             } else {
                 session.setAttribute("ERROR", "Failed to log in with Google. Please try again or use another login method");
             }

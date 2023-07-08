@@ -5,7 +5,7 @@ const headerSearchInput = $(".header__search-input");
 const headerSearchBtn = $(".header__search-icon-wrapper");
 
 export default {
-    isSearch() {
+    handleEvents() {
         if (headerSearchBtn) {
             headerSearchBtn.onclick = () => {
                 if (headerSearchInput.value === "") {
@@ -18,6 +18,6 @@ export default {
     },
 
     start() {
-        this.isSearch();
+        this.handleEvents();
     },
 };

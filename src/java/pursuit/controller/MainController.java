@@ -61,6 +61,16 @@ public class MainController extends HttpServlet {
     private static final String CHANGE_PASSWORD_CONTROLLER = "ChangePasswordController";
     private static final String ADD_ORDER = "AddOrder";
     private static final String ADD_ORDER_CONTROLLER = "AddOrderController";
+    private static final String UPDATE_PRODUCT = "UpdateProduct";
+    private static final String UPDATE_PRODUCT_CONTROLLER = "UpdateProductController";
+    private static final String CREATE_PRODUCT = "CreateProduct";
+    private static final String CREATE_PRODUCT_CONTROLLER = "CreateProductController";
+    private static final String GET_PV_LIST = "GetPVList";
+    private static final String GET_PV_LIST_CONTROLLER = "ProductVariantController";
+    private static final String UPDATE_PVARIANT = "UpdateProductVariant";
+    private static final String UPDATE_PVARIANT_CONTROLLER = "UpdatePVariantController";
+    private static final String CREATE_PVARIANT = "CreateProductVariant";
+    private static final String CREATE_PVARIANT_CONTROLLER = "CreatePVariantController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -140,6 +150,21 @@ public class MainController extends HttpServlet {
                     break;
                 case ADD_ORDER:
                     url = ADD_ORDER_CONTROLLER;
+                    break;
+                case UPDATE_PRODUCT:
+                    url = UPDATE_PRODUCT_CONTROLLER;
+                    break;
+                case CREATE_PRODUCT:
+                    url = CREATE_PRODUCT_CONTROLLER;
+                    break;
+                case GET_PV_LIST:
+                    url = GET_PV_LIST_CONTROLLER;
+                    break;
+                case UPDATE_PVARIANT:
+                    url = UPDATE_PVARIANT_CONTROLLER;
+                    break;
+                case CREATE_PVARIANT:
+                    url = CREATE_PVARIANT_CONTROLLER;
                     break;
                 default:
                     url = WELCOME_PAGE;
