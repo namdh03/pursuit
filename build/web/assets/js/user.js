@@ -90,30 +90,40 @@ export default {
                 data.append("oldPassword", formData.oldPassword);
                 data.append("password", formData.password);
 
-                sendRequest(url, "POST", data)
-                    .then((response) => {
-                        if (response.ERROR) {
-                            toast({
-                                title: "Warning!",
-                                message: response.ERROR,
-                                type: "warning",
-                                duration: 3000,
-                            });
-                        } else if (response.SUCCESS) {
-                            toast({
-                                title: "Success!",
-                                message: response.SUCCESS,
-                                type: "success",
-                                duration: 3000,
-                            });
-                            Array.from(formControls).forEach((input) => {
-                                input.value = "";
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
+                const response = grecaptcha.getResponse();
+                if (response) {
+                    sendRequest(url, "POST", data)
+                        .then((response) => {
+                            if (response.ERROR) {
+                                toast({
+                                    title: "Warning!",
+                                    message: response.ERROR,
+                                    type: "warning",
+                                    duration: 3000,
+                                });
+                            } else if (response.SUCCESS) {
+                                toast({
+                                    title: "Success!",
+                                    message: response.SUCCESS,
+                                    type: "success",
+                                    duration: 3000,
+                                });
+                                Array.from(formControls).forEach((input) => {
+                                    input.value = "";
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                } else {
+                    toast({
+                        title: "Warning!",
+                        message: "Please verify the Captcha to proceed",
+                        type: "warning",
+                        duration: 3000,
                     });
+                }
             };
         }
     },

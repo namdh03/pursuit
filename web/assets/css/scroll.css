@@ -1,0 +1,29 @@
+.hide {
+    display: none !important;
+}
+
+.back-to-top {
+    position: fixed;
+    z-index: 100;
+    right: 40px;
+    bottom: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(30, 120, 125, 0.3) 0px 0px 0px 3px;
+    cursor: pointer;
+}
+
+.back-to-top .progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    border-radius: 50%;
+    color: #666666;
+}

@@ -108,6 +108,24 @@
 
         <main>
             <div id="toast"></div>
+            <div class="back-to-top hide">
+                <div class="progress">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        version="1.1"
+                        width="17"
+                        height="17"
+                        viewBox="0 0 17 17"
+                    >
+                        <g></g>
+                        <path
+                            d="M15.146 8.854l-6.146-6.147v13.293h-1v-13.293l-6.146 6.147-0.708-0.708 7.354-7.353 7.354 7.354-0.708 0.707z"
+                            fill="var(--primary-color)"
+                        />
+                    </svg>
+                </div>
+            </div>
             <section class="product">
                 <div class="grid wide">
                     <div class="row">

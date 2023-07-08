@@ -1,4 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${sessionScope.USER != null}">
+    <c:choose>
+        <c:when test="${sessionScope.USER.role.roleId.trim() eq 'AD'}">
+            <c:redirect url="admin.jsp" />
+        </c:when>
+        <c:otherwise>
+            <c:redirect url="user.jsp" />
+        </c:otherwise>
+    </c:choose>
+</c:if>
+<c:set
+    var="rootPath"
+    value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"
+/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -104,16 +118,23 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <c:if test="${sessionScope.USER != null}">
-            <c:redirect url="./" />
-        </c:if>
-
-        <c:set
-            var="rootPath"
-            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"
-        />
-
         <div id="toast"></div>
+        <div class="loader-wrapper loader-wrapper--page">
+            <div class="loader-page">
+                <div class="loader-page__box"></div>
+                <div class="loader-page__box"></div>
+            </div>
+        </div>
+
+        <div
+            class="loader-wrapper loader-wrapper--default loader-wrapper--bgcolor hidden"
+        >
+            <div class="loader-default">
+                <svg viewBox="0 0 80 80">
+                    <rect x="8" y="8" width="64" height="64"></rect>
+                </svg>
+            </div>
+        </div>
         <section class="register form__container">
             <div class="form__inner form__inner--register">
                 <div class="grid">
@@ -189,6 +210,15 @@
                                     </button>
                                 </div>
                             </form>
+
+                            <div
+                                class="form-group form__form-group register__recaptcha"
+                            >
+                                <div
+                                    class="g-recaptcha"
+                                    data-sitekey="6LdHDQgnAAAAAOZi3C-kk7k070xSlE3qNKFogTGm"
+                                ></div>
+                            </div>
                         </div>
 
                         <div class="col l-12 m-12 c-12">
@@ -299,5 +329,10 @@
                 });
             }
         </script>
+        <script
+            src="https://www.google.com/recaptcha/api.js"
+            async
+            defer
+        ></script>
     </body>
 </html>

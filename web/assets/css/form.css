@@ -200,3 +200,11 @@
 .register__form {
     margin-top: 45px;
 }
+
+/* ==================== Recaptcha ==================== */
+.register__recaptcha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}

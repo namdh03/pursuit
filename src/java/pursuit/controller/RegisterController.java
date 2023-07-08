@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import pursuit.dao.AccountDAO;
 import pursuit.utils.Email;
 import pursuit.utils.Encode;
@@ -72,6 +73,8 @@ public class RegisterController extends HttpServlet {
                         checkInsert = adao.verifyCode(username, Encode.toSHA1(code), "ADD");
 
                         if (checkInsert) {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("success", "Registration successful! Please check your email and click the link to verify your account");
                             data.put("success", "Registration successful! Please check your email and click the link to verify your account");
                         }
                     }

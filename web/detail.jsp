@@ -2,6 +2,9 @@
 <!--Import fmt-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en_US" />
+<c:if test="${requestScope.PRODUCT == null}">
+    <c:redirect url="shop.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
     <head>

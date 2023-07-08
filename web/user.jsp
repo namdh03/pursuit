@@ -4,6 +4,11 @@
 <!--Import fmt-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en_US" />
+<c:if
+    test="${sessionScope.USER == null || sessionScope.USER.role.roleId.trim() ne 'AD' && sessionScope.USER.role.roleId.trim() ne 'US'}"
+>
+    <c:redirect url="login.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -221,6 +226,38 @@
                                         </span>
                                     </li>
                                 </ul>
+
+                                <c:if
+                                    test="${sessionScope.USER.role.roleId.trim() eq 'AD'}"
+                                >
+                                    <a
+                                        href="./admin.jsp"
+                                        class="user__admin"
+                                        title="Admin Mode"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            version="1.1"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 17 17"
+                                            class="user__item-icon"
+                                        >
+                                            <g></g>
+                                            <path
+                                                d="M12.626 6.743l-4.083-6.673-4.211 6.675-4.499-3.833 1.739 13.088h13.855l1.738-13.075-4.539 3.818zM2.447 15l-0.133-1h12.371l-0.133 1h-12.105zM14.818 13h-12.636l-1.015-7.637 3.396 2.892 3.967-6.29 3.851 6.292 3.454-2.906-1.017 7.649z"
+                                                fill="currentColor"
+                                            />
+                                        </svg>
+                                        <span
+                                            class="user__item-text paragraph paragraph--secondary"
+                                            title="Admin Mode"
+                                        >
+                                            Admin Mode
+                                        </span>
+                                    </a>
+                                </c:if>
 
                                 <c:url var="logoutUrl" value="MainController">
                                     <c:param name="action" value="Logout" />
@@ -896,6 +933,15 @@
                                                 </button>
                                             </div>
                                         </form>
+
+                                        <div
+                                            class="form-group form__form-group register__recaptcha"
+                                        >
+                                            <div
+                                                class="g-recaptcha"
+                                                data-sitekey="6LdHDQgnAAAAAOZi3C-kk7k070xSlE3qNKFogTGm"
+                                            ></div>
+                                        </div>
                                     </div>
                                 </section>
                             </c:if>
@@ -1091,5 +1137,10 @@
                 showErrorToast = false;
             }
         </script>
+        <script
+            src="https://www.google.com/recaptcha/api.js"
+            async
+            defer
+        ></script>
     </body>
 </html>

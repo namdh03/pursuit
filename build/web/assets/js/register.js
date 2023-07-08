@@ -1,6 +1,12 @@
 import Validator from "./validator.js";
 import toast from "./toast.js";
 import sendRequest from "./request.js";
+import {
+    showLoaderPage,
+    hideLoaderPage,
+    showLoaderDefault,
+    hideLoaderDefault,
+} from "./loader.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -10,6 +16,7 @@ const loginGoogle = $(".form__google-submit");
 const googleRedirectURI = $(".form__google-redirect-uri");
 const formGroup = $$(".form-group");
 
+hideLoaderPage();
 registerForm.onSubmit = (formData) => {
     const url = "MainController?action=Register";
     const data = new URLSearchParams();
@@ -17,33 +24,38 @@ registerForm.onSubmit = (formData) => {
     data.append("username", formData.username);
     data.append("password", formData.password);
 
-    sendRequest(url, "POST", data)
-        .then((response) => {
-            if (response.success != null) {
-                toast({
-                    title: "Success!",
-                    message: response.success,
-                    type: "success",
-                    duration: 3000,
-                });
-                setTimeout(() => {
+    const response = grecaptcha.getResponse();
+    if (response) {
+        showLoaderPage();
+        sendRequest(url, "POST", data)
+            .then((response) => {
+                if (response.success != null) {
                     window.location.href = "./login.jsp";
-                }, 3000);
-            } else {
-                toast({
-                    title: "Error!",
-                    message: response.email || response.username,
-                    type: "error",
-                    duration: 3000,
-                });
-                Array.from(formGroup).forEach((grp) => {
-                    grp.classList.add("invalid");
-                });
-            }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
+                } else {
+                    hideLoaderPage();
+                    toast({
+                        title: "Error!",
+                        message: response.email || response.username,
+                        type: "error",
+                        duration: 3000,
+                    });
+                    Array.from(formGroup).forEach((grp) => {
+                        grp.classList.add("invalid");
+                    });
+                }
+            })
+            .catch((error) => {
+                hideLoaderPage();
+                console.error("Error:", error);
+            });
+    } else {
+        toast({
+            title: "Warning!",
+            message: "Please verify the Captcha to proceed",
+            type: "warning",
+            duration: 3000,
         });
+    }
 };
 
 /*

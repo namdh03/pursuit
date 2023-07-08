@@ -14,6 +14,7 @@
     box-shadow: 0px 0px 30px 0px rgba(170, 170, 170, 0.16);
 }
 
+.user__admin,
 .user__logout,
 .user__item {
     position: relative;
@@ -27,6 +28,11 @@
     cursor: pointer;
 }
 
+.user__admin {
+    align-items: flex-start;
+}
+
+.user__admin::after,
 .user__item::after,
 .user__logout::after {
     content: "";
@@ -43,6 +49,7 @@
     transition: all ease 0.3s;
 }
 
+.user__admin--active::after,
 .user__item--active::after,
 .user__item:hover::after,
 .user__logout:hover:after {
@@ -50,6 +57,7 @@
     visibility: visible;
 }
 
+.user__admin:hover .user__item-text,
 .user__item--active .user__item-text,
 .user__logout:hover .user__item-text,
 .user__item:hover .user__item-text {
@@ -57,6 +65,7 @@
     font-weight: 700;
 }
 
+.user__admin:hover .user__item-icon,
 .user__item--active .user__item-icon,
 .user__item:hover .user__item-icon,
 .user__logout:hover .user__item-icon {

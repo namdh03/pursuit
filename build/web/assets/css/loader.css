@@ -1,0 +1,291 @@
+/* Loader page */
+.loader-wrapper--page {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 9999;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-wrapper.hidden {
+    display: none;
+}
+
+.loader-page {
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 150px;
+    height: 150px;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg) rotate(45deg);
+}
+
+.loader-page__box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffd6d0;
+    animation: move 2s ease-in-out infinite both;
+    transform-style: preserve-3d;
+}
+
+.loader-page__box:nth-child(1) {
+    animation-delay: -1s;
+}
+
+.loader-page__box:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.loader-page__box:nth-child(3) {
+    animation-delay: -3s;
+}
+
+.loader-page__box:before,
+.loader-page__box:after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+.loader-page__box:before {
+    top: 100%;
+    left: 0;
+    background: #ffb299;
+    transform-origin: center top;
+    transform: rotateX(-90deg);
+}
+
+.loader-page__box:after {
+    top: 0;
+    left: 100%;
+    background: #dd8262;
+    transform-origin: center left;
+    transform: rotateY(90deg);
+}
+
+@keyframes move {
+    0%,
+    100% {
+        transform: none;
+    }
+
+    12.5% {
+        transform: translate(30px, 0);
+    }
+
+    25% {
+        transform: translate(60px, 0);
+    }
+
+    37.5% {
+        transform: translate(60px, 30px);
+    }
+
+    50% {
+        transform: translate(60px, 60px);
+    }
+
+    62.5% {
+        transform: translate(30px, 60px);
+    }
+
+    75% {
+        transform: translate(0, 60px);
+    }
+
+    87.5% {
+        transform: translate(0, 30px);
+    }
+}
+
+/* Loader default */
+.loader-wrapper--default {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 9998;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-wrapper--bgcolor {
+    background-color: rgb(255, 255, 255, 0.6);
+}
+
+.loader-wrapper.hidden {
+    display: none;
+}
+
+.loader-default {
+    --path: #111;
+    --dot: #dd8262;
+    --duration: 3s;
+    width: 44px;
+    height: 44px;
+    position: relative;
+}
+
+.loader-default:before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: absolute;
+    display: block;
+    background: var(--dot);
+    top: 37px;
+    left: 19px;
+    transform: translate(-18px, -18px);
+    animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+        infinite;
+}
+
+.loader-default svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-default svg rect,
+.loader-default svg polygon,
+.loader-default svg circle {
+    fill: none;
+    stroke: var(--path);
+    stroke-width: 10px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.loader-default svg polygon {
+    stroke-dasharray: 145 76 145 76;
+    stroke-dashoffset: 0;
+    animation: pathTriangle var(--duration)
+        cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader-default svg rect {
+    stroke-dasharray: 192 64 192 64;
+    stroke-dashoffset: 0;
+    animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader-default svg circle {
+    stroke-dasharray: 150 50 150 50;
+    stroke-dashoffset: 75;
+    animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86)
+        infinite;
+}
+
+.loader-default.triangle {
+    width: 48px;
+}
+
+.loader-default.triangle:before {
+    left: 21px;
+    transform: translate(-10px, -18px);
+    animation: dotTriangle var(--duration)
+        cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+@keyframes pathTriangle {
+    33% {
+        stroke-dashoffset: 74;
+    }
+
+    66% {
+        stroke-dashoffset: 147;
+    }
+
+    100% {
+        stroke-dashoffset: 221;
+    }
+}
+
+@keyframes dotTriangle {
+    33% {
+        transform: translate(0, 0);
+    }
+
+    66% {
+        transform: translate(10px, -18px);
+    }
+
+    100% {
+        transform: translate(-10px, -18px);
+    }
+}
+
+@keyframes pathRect {
+    25% {
+        stroke-dashoffset: 64;
+    }
+
+    50% {
+        stroke-dashoffset: 128;
+    }
+
+    75% {
+        stroke-dashoffset: 192;
+    }
+
+    100% {
+        stroke-dashoffset: 256;
+    }
+}
+
+@keyframes dotRect {
+    25% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, -18px);
+    }
+
+    75% {
+        transform: translate(0, -36px);
+    }
+
+    100% {
+        transform: translate(-18px, -18px);
+    }
+}
+
+@keyframes pathCircle {
+    25% {
+        stroke-dashoffset: 125;
+    }
+
+    50% {
+        stroke-dashoffset: 175;
+    }
+
+    75% {
+        stroke-dashoffset: 225;
+    }
+
+    100% {
+        stroke-dashoffset: 275;
+    }
+}
+
+.loader-default {
+    display: inline-block;
+    margin: 0 16px;
+}

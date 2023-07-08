@@ -1,4 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${sessionScope.USER != null}">
+    <c:choose>
+        <c:when test="${sessionScope.USER.role.roleId.trim() eq 'AD'}">
+            <c:redirect url="admin.jsp" />
+        </c:when>
+        <c:otherwise>
+            <c:redirect url="user.jsp" />
+        </c:otherwise>
+    </c:choose>
+</c:if>
+<c:set
+    var="rootPath"
+    value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"
+/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -104,15 +118,6 @@
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
-        <c:if test="${sessionScope.USER != null}">
-            <c:redirect url="./" />
-        </c:if>
-
-        <c:set
-            var="rootPath"
-            value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"
-        />
-
         <div id="toast"></div>
         <section class="login form__container">
             <div class="form__inner form__inner--login">
@@ -299,6 +304,23 @@
                     type: "error",
                     duration: 3000,
                 });
+                <c:remove var="ERROR" scope="session" />;
+                showErrorToast = false;
+            }
+
+            <c:if test="${sessionScope.success != null}">
+                showErrorToast = true;
+            </c:if>;
+
+            if (showErrorToast) {
+                toast({
+                    title: "Success!",
+                    message: "${sessionScope.success}",
+                    type: "success",
+                    duration: 3000,
+                });
+                <c:remove var="success" scope="session" />;
+                showErrorToast = false;
             }
         </script>
     </body>
