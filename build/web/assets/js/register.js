@@ -11,7 +11,6 @@ const loginGoogle = $(".form__google-submit");
 const googleRedirectURI = $(".form__google-redirect-uri");
 const formGroup = $$(".form-group");
 
-showLoader();
 registerForm.onSubmit = (formData) => {
     const url = "MainController?action=Register";
     const data = new URLSearchParams();
