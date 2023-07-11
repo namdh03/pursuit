@@ -1,12 +1,7 @@
 import Validator from "./validator.js";
 import toast from "./toast.js";
 import sendRequest from "./request.js";
-import {
-    showLoaderPage,
-    hideLoaderPage,
-    showLoaderDefault,
-    hideLoaderDefault,
-} from "./loader.js";
+import { showLoader, hideLoader } from "./loader.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -16,7 +11,7 @@ const loginGoogle = $(".form__google-submit");
 const googleRedirectURI = $(".form__google-redirect-uri");
 const formGroup = $$(".form-group");
 
-hideLoaderPage();
+showLoader();
 registerForm.onSubmit = (formData) => {
     const url = "MainController?action=Register";
     const data = new URLSearchParams();
@@ -26,13 +21,13 @@ registerForm.onSubmit = (formData) => {
 
     const response = grecaptcha.getResponse();
     if (response) {
-        showLoaderPage();
+        showLoader();
         sendRequest(url, "POST", data)
             .then((response) => {
                 if (response.success != null) {
                     window.location.href = "./login.jsp";
                 } else {
-                    hideLoaderPage();
+                    hideLoader();
                     toast({
                         title: "Error!",
                         message: response.email || response.username,
@@ -45,7 +40,7 @@ registerForm.onSubmit = (formData) => {
                 }
             })
             .catch((error) => {
-                hideLoaderPage();
+                hideLoader();
                 console.error("Error:", error);
             });
     } else {
